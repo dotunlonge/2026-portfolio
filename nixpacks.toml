@@ -1,0 +1,20 @@
+# Nixpacks configuration for Railway
+# This file helps Railway understand how to build your project
+
+[phases.setup]
+nixPkgs = ["nodejs_18", "cmake", "gcc", "make"]
+
+[phases.install]
+cmds = [
+  "cd backend && mkdir -p build && cd build && cmake .. && make",
+  "cd ../frontend && npm install"
+]
+
+[phases.build]
+cmds = [
+  "cd frontend && npm run build"
+]
+
+[start]
+cmd = "cd backend/build && ./portfolio-server"
+
