@@ -2,6 +2,7 @@ import React, { lazy, Suspense } from 'react'
 import ReactDOM from 'react-dom/client'
 import { RouterProvider, createRouter, NotFoundRoute } from '@tanstack/react-router'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { Analytics } from '@vercel/analytics/react'
 import { routeTree } from './routeTree.gen'
 import { Route as RootRoute } from './routes/__root'
 import { ThemeProvider } from './ThemeContext'
@@ -96,6 +97,7 @@ if (rootElement.hasChildNodes()) {
         <QueryClientProvider client={queryClient}>
           <ErrorBoundary>
             <RouterProvider router={router} />
+            <Analytics />
           </ErrorBoundary>
         </QueryClientProvider>
       </ThemeProvider>
@@ -109,6 +111,7 @@ if (rootElement.hasChildNodes()) {
         <QueryClientProvider client={queryClient}>
           <ErrorBoundary>
             <RouterProvider router={router} />
+            <Analytics />
           </ErrorBoundary>
         </QueryClientProvider>
       </ThemeProvider>
