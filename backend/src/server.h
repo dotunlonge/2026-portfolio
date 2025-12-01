@@ -25,5 +25,6 @@ private:
     std::string parsePath(const std::string& request);
     std::string createResponse(const std::string& body, const std::string& contentType = "application/json", int statusCode = 200);
     std::string readFile(const std::string& path);
+    std::string getAllowedOrigin();
 };
 
