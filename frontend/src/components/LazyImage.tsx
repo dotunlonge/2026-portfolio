@@ -10,6 +10,37 @@ interface LazyImageProps {
   loading?: 'lazy' | 'eager'
 }
 
+/**
+ * LazyImage component that implements lazy loading for images using IntersectionObserver.
+ * 
+ * This component:
+ * - Only loads images when they're about to enter the viewport (50px margin)
+ * - Shows a skeleton loader while the image is loading
+ * - Handles loading errors gracefully
+ * - Supports both 'lazy' and 'eager' loading strategies
+ * - Uses native browser lazy loading as a fallback
+ * 
+ * @param {LazyImageProps} props - Image component props
+ * @param {string} props.src - Image source URL
+ * @param {string} props.alt - Alt text for accessibility
+ * @param {string} [props.className] - Additional CSS classes
+ * @param {number} [props.width] - Image width in pixels
+ * @param {number} [props.height] - Image height in pixels
+ * @param {'lazy' | 'eager'} [props.loading='lazy'] - Loading strategy ('lazy' uses IntersectionObserver, 'eager' loads immediately)
+ * 
+ * @returns {JSX.Element} A div wrapper containing the image with lazy loading behavior
+ * 
+ * @example
+ * ```tsx
+ * <LazyImage 
+ *   src="/hero-image.jpg"
+ *   alt="Hero image"
+ *   width={1200}
+ *   height={600}
+ *   loading="lazy"
+ * />
+ * ```
+ */
 export function LazyImage({ 
   src, 
   alt, 
@@ -29,6 +60,10 @@ export function LazyImage({
       return
     }
 
+    /**
+     * IntersectionObserver callback that triggers image loading when the element
+     * enters the viewport (with 50px margin for smoother UX).
+     */
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -50,10 +85,18 @@ export function LazyImage({
     return () => observer.disconnect()
   }, [loading])
 
+  /**
+   * Handles successful image load event.
+   * Updates state to hide skeleton loader and show the image.
+   */
   const handleLoad = () => {
     setIsLoaded(true)
   }
 
+  /**
+   * Handles image load error event.
+   * Updates state to show error message instead of the image.
+   */
   const handleError = () => {
     setHasError(true)
     setIsLoaded(false)
