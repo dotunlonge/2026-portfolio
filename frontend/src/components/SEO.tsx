@@ -44,7 +44,7 @@ export function SEO({
     updateMetaTag('author', 'Oludotun Longe')
 
     // Open Graph tags
-    const fullImageUrl = image.startsWith('http') ? image : `https://dotunlonge.vercel.app${image}`
+    const fullImageUrl = image && image.startsWith('http') ? image : `https://dotunlonge.vercel.app${image || '/og-image.png'}`
     updateMetaTag('og:title', title, true)
     updateMetaTag('og:description', description, true)
     updateMetaTag('og:image', fullImageUrl, true)
