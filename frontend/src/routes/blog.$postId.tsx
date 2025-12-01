@@ -1,6 +1,9 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { useQuery } from '@tanstack/react-query'
 import ReactMarkdown from 'react-markdown'
+import { apiFetch, ApiException } from '../utils/api'
+import { BlogPostSkeleton } from '../components/SkeletonLoader'
+import { SEO } from '../components/SEO'
 import './blog.$postId.css'
 
 interface BlogPost {
@@ -12,12 +15,8 @@ interface BlogPost {
   category: string
 }
 
-const API_BASE = import.meta.env.VITE_API_URL || '/api'
-
 async function fetchBlogPost(postId: string): Promise<BlogPost> {
-  const response = await fetch(`${API_BASE}/blog/${postId}`)
-  if (!response.ok) throw new Error('Failed to fetch blog post')
-  return response.json()
+  return apiFetch<BlogPost>(`/blog/${postId}`)
 }
 
 export const Route = createFileRoute('/blog/$postId')({
@@ -26,23 +25,46 @@ export const Route = createFileRoute('/blog/$postId')({
 
 function BlogPostDetail() {
   const { postId } = Route.useParams()
-  const { data: post, isLoading } = useQuery({
+  const { data: post, isLoading, error } = useQuery({
     queryKey: ['blogPost', postId],
     queryFn: () => fetchBlogPost(postId),
+    retry: 3,
+    retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
   })
 
   if (isLoading) {
     return (
-      <div className="container">
-        <div className="loading">Loading article...</div>
+      <div className="blog-post-page">
+        <div className="container">
+          <BlogPostSkeleton />
+        </div>
       </div>
     )
   }
 
-  if (!post) {
+  if (error || !post) {
+    const errorMessage = error instanceof ApiException 
+      ? error.message 
+      : 'Article not found or failed to load. Please try again.'
+    
     return (
       <div className="container">
-        <div className="error">Article not found</div>
+        <div className="error-state">
+          <h2 className="error-title">Unable to Load Article</h2>
+          <p className="error-message">{errorMessage}</p>
+          <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
+            <Link to="/blog" className="error-retry-button" style={{ textDecoration: 'none', display: 'inline-block' }}>
+              Back to Blog
+            </Link>
+            <button 
+              onClick={() => window.location.reload()} 
+              className="error-retry-button"
+              aria-label="Retry loading article"
+            >
+              Retry
+            </button>
+          </div>
+        </div>
       </div>
     )
   }
@@ -58,6 +80,12 @@ function BlogPostDetail() {
 
   return (
     <div className="blog-post-page">
+      <SEO 
+        title={`${post.title} | Oludotun Longe`}
+        description={post.excerpt}
+        url={`https://dotunlonge.vercel.app/blog/${post.id}`}
+        type="article"
+      />
       <div className="container">
         <Link to="/blog" className="back-link">
           ← Back to Blog
