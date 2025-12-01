@@ -1,5 +1,8 @@
 import { createFileRoute, Link, Outlet, useRouterState } from '@tanstack/react-router'
 import { useQuery } from '@tanstack/react-query'
+import { apiFetch, ApiException } from '../utils/api'
+import { BlogPostSkeleton } from '../components/SkeletonLoader'
+import { SEO } from '../components/SEO'
 import './blog.css'
 
 interface BlogPost {
@@ -10,12 +13,8 @@ interface BlogPost {
   category: string
 }
 
-const API_BASE = import.meta.env.VITE_API_URL || '/api'
-
 async function fetchBlogPosts(): Promise<BlogPost[]> {
-  const response = await fetch(`${API_BASE}/blog`)
-  if (!response.ok) throw new Error('Failed to fetch blog posts')
-  return response.json()
+  return apiFetch<BlogPost[]>('/blog')
 }
 
 export const Route = createFileRoute('/blog')({
@@ -32,15 +31,51 @@ function Blog() {
   }
 
   // Otherwise, render the blog list
-  const { data: posts, isLoading } = useQuery({
+  const { data: posts, isLoading, error } = useQuery({
     queryKey: ['blogPosts'],
     queryFn: fetchBlogPosts,
+    retry: 3,
+    retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
   })
 
   if (isLoading) {
     return (
+      <div className="blog-page">
+        <div className="container">
+          <div className="blog-header">
+            <h1 className="blog-title">Sci-Fi Musings</h1>
+            <p className="blog-subtitle">
+              Exploring the infinite possibilities of time, space, and existence
+            </p>
+          </div>
+          <div className="blog-posts">
+            <BlogPostSkeleton />
+            <BlogPostSkeleton />
+            <BlogPostSkeleton />
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  if (error) {
+    const errorMessage = error instanceof ApiException 
+      ? error.message 
+      : 'Failed to load blog posts. Please try refreshing the page.'
+    
+    return (
       <div className="container">
-        <div className="loading">Loading articles...</div>
+        <div className="error-state">
+          <h2 className="error-title">Unable to Load Blog Posts</h2>
+          <p className="error-message">{errorMessage}</p>
+          <button 
+            onClick={() => window.location.reload()} 
+            className="error-retry-button"
+            aria-label="Retry loading blog posts"
+          >
+            Retry
+          </button>
+        </div>
       </div>
     )
   }
@@ -56,6 +91,11 @@ function Blog() {
 
   return (
     <div className="blog-page">
+      <SEO 
+        title="Sci-Fi Musings - Blog | Oludotun Longe"
+        description="Exploring the infinite possibilities of time, space, and existence"
+        url="https://dotunlonge.vercel.app/blog"
+      />
       <div className="container">
         <div className="blog-header">
           <h1 className="blog-title">Sci-Fi Musings</h1>
