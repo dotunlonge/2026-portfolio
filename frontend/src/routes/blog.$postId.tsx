@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { useQuery } from '@tanstack/react-query'
+import ReactMarkdown from 'react-markdown'
 import './blog.$postId.css'
 
 interface BlogPost {
@@ -55,14 +56,6 @@ function BlogPostDetail() {
     })
   }
 
-  const formatContent = (content: string) => {
-    return content.split('\n\n').map((paragraph, index) => (
-      <p key={index} className="content-paragraph">
-        {paragraph}
-      </p>
-    ))
-  }
-
   return (
     <div className="blog-post-page">
       <div className="container">
@@ -79,7 +72,7 @@ function BlogPostDetail() {
           <h1 className="article-title">{post.title}</h1>
           
           <div className="article-content">
-            {formatContent(post.content)}
+            <ReactMarkdown>{post.content}</ReactMarkdown>
           </div>
 
           <div className="article-footer">
