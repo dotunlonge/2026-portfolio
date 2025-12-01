@@ -7,6 +7,8 @@
 #include <fstream>
 #include <thread>
 #include <vector>
+#include <cstdlib>
+#include <cstring>
 
 SimpleHTTPServer::SimpleHTTPServer(int port) : port_(port), server_fd_(-1), running_(false) {}
 
@@ -36,6 +38,15 @@ std::string SimpleHTTPServer::parsePath(const std::string& request) {
 }
 
 
+std::string SimpleHTTPServer::getAllowedOrigin() {
+    const char* allowed_origin = std::getenv("ALLOWED_ORIGIN");
+    if (allowed_origin && strlen(allowed_origin) > 0) {
+        return std::string(allowed_origin);
+    }
+    // Default to allowing localhost for development
+    return "http://localhost:3000";
+}
+
 std::string SimpleHTTPServer::createResponse(const std::string& body, const std::string& contentType, int statusCode) {
     std::ostringstream response;
     if (statusCode == 200) {
@@ -46,9 +57,13 @@ std::string SimpleHTTPServer::createResponse(const std::string& body, const std:
         response << "HTTP/1.1 500 Internal Server Error\r\n";
     }
     response << "Content-Type: " << contentType << "\r\n";
-    response << "Access-Control-Allow-Origin: *\r\n";
+    
+    // Use configurable CORS origin instead of wildcard
+    std::string allowed_origin = getAllowedOrigin();
+    response << "Access-Control-Allow-Origin: " << allowed_origin << "\r\n";
     response << "Access-Control-Allow-Methods: GET, POST, OPTIONS\r\n";
     response << "Access-Control-Allow-Headers: Content-Type\r\n";
+    response << "Access-Control-Allow-Credentials: true\r\n";
     response << "Content-Length: " << body.length() << "\r\n";
     response << "\r\n";
     response << body;
@@ -79,10 +94,12 @@ void SimpleHTTPServer::handleRequest(int client_fd) {
     
     // Handle OPTIONS for CORS
     if (request.find("OPTIONS") == 0) {
+        std::string allowed_origin = getAllowedOrigin();
         std::string response = "HTTP/1.1 200 OK\r\n"
-                              "Access-Control-Allow-Origin: *\r\n"
+                              "Access-Control-Allow-Origin: " + allowed_origin + "\r\n"
                               "Access-Control-Allow-Methods: GET, POST, OPTIONS\r\n"
                               "Access-Control-Allow-Headers: Content-Type\r\n"
+                              "Access-Control-Allow-Credentials: true\r\n"
                               "\r\n";
         send(client_fd, response.c_str(), response.length(), 0);
         close(client_fd);
