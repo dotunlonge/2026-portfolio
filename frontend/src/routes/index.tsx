@@ -42,14 +42,32 @@ interface WorkExperience {
   technologies: string[]
 }
 
+/**
+ * Fetches personal information from the API.
+ * 
+ * @returns {Promise<PersonalInfo>} Promise that resolves to personal information object
+ * @throws {ApiException} If the API request fails
+ */
 async function fetchPersonalInfo(): Promise<PersonalInfo> {
   return apiFetch<PersonalInfo>('/personal')
 }
 
+/**
+ * Fetches the list of key projects from the API.
+ * 
+ * @returns {Promise<Project[]>} Promise that resolves to an array of project objects
+ * @throws {ApiException} If the API request fails
+ */
 async function fetchProjects(): Promise<Project[]> {
   return apiFetch<Project[]>('/projects')
 }
 
+/**
+ * Fetches work experience history from the API.
+ * 
+ * @returns {Promise<WorkExperience[]>} Promise that resolves to an array of work experience objects
+ * @throws {ApiException} If the API request fails
+ */
 async function fetchWorkExperience(): Promise<WorkExperience[]> {
   return apiFetch<WorkExperience[]>('/work-experience')
 }
@@ -58,7 +76,23 @@ export const Route = createFileRoute('/')({
   component: Home,
 })
 
-// Simple icon mapping for technologies
+/**
+ * Returns a visual icon or abbreviation for a given technology name.
+ * 
+ * Maps common technology names to emoji icons or abbreviations for better
+ * visual recognition in the skills section. Falls back to a bullet point
+ * for unmapped technologies.
+ * 
+ * @param {string} tech - Technology name (e.g., 'TypeScript', 'React', 'AWS')
+ * @returns {JSX.Element | null} A span element containing the icon/abbreviation, or null
+ * 
+ * @example
+ * ```typescript
+ * getTechIcon('TypeScript') // Returns: <span>TS</span>
+ * getTechIcon('React') // Returns: <span>⚛️</span>
+ * getTechIcon('UnknownTech') // Returns: <span>•</span>
+ * ```
+ */
 function getTechIcon(tech: string): JSX.Element | null {
   const iconMap: { [key: string]: string } = {
     'TypeScript': 'TS',
