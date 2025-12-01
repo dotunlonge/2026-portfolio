@@ -1,4 +1,4 @@
-import { Link } from '@tanstack/react-router'
+import { createFileRoute, Link } from '@tanstack/react-router'
 import { SEO } from '../components/SEO'
 import './404.css'
 
@@ -30,3 +30,7 @@ export function NotFound() {
     </div>
   )
 }
+
+export const Route = createFileRoute('/404')({
+  component: NotFound,
+})
