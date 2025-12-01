@@ -7,11 +7,27 @@ import { ErrorBoundary } from '../components/ErrorBoundary'
 import { SEO } from '../components/SEO'
 import '../App.css'
 
+/**
+ * Root component that wraps the entire application.
+ * 
+ * Provides:
+ * - Navigation bar with mobile menu support
+ * - Focus management for accessibility
+ * - Keyboard navigation (Escape key to close menu)
+ * - Error boundary for error handling
+ * - SEO meta tags
+ * 
+ * @returns {JSX.Element} Root layout with navigation, main content area, and footer
+ */
 function RootComponent() {
   const { isMenuOpen, toggleMenu, closeMenu } = useMenuStore()
   const navLinksRef = useRef<HTMLDivElement>(null)
 
-  // Focus management for mobile menu
+  /**
+   * Effect that manages focus for accessibility when the mobile menu opens.
+   * Automatically focuses the first interactive element (link or button) in the menu
+   * to improve keyboard navigation and screen reader experience.
+   */
   useEffect(() => {
     if (isMenuOpen && navLinksRef.current) {
       // Focus first link when menu opens
@@ -22,8 +38,17 @@ function RootComponent() {
     }
   }, [isMenuOpen])
 
-  // Close menu on Escape key
+  /**
+   * Effect that handles keyboard navigation for closing the mobile menu.
+   * Listens for the Escape key and closes the menu when pressed.
+   * Cleans up the event listener when the component unmounts or dependencies change.
+   */
   useEffect(() => {
+    /**
+     * Handles Escape key press to close the mobile menu.
+     * 
+     * @param {KeyboardEvent} e - The keyboard event
+     */
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && isMenuOpen) {
         closeMenu()
