@@ -29,11 +29,16 @@ export class ApiException extends Error {
 }
 
 export async function apiFetch<T>(endpoint: string, options?: RequestInit): Promise<T> {
-  const url = `${API_BASE_URL}${endpoint}`
+  // Build URL - add cache-busting in development mode only
+  let url = `${API_BASE_URL}${endpoint}`
+  if (import.meta.env.DEV && !endpoint.includes('?')) {
+    url += `?t=${Date.now()}`
+  }
   
   try {
     const response = await fetch(url, {
       ...options,
+      cache: 'no-store', // Always fetch fresh data, bypass browser cache
       headers: {
         'Content-Type': 'application/json',
         ...options?.headers,
