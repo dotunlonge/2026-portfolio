@@ -40,5 +40,6 @@ namespace api {
     std::string getBlogPostJson(const std::string& id);
     std::string getPersonalInfoJson();
     std::string getWorkExperienceJson();
+    std::string getLeaderboardJson(const std::string& gameId);
 }
 
