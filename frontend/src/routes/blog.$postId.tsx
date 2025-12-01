@@ -15,6 +15,13 @@ interface BlogPost {
   category: string
 }
 
+/**
+ * Fetches a single blog post by its ID from the API.
+ * 
+ * @param {string} postId - The unique identifier of the blog post
+ * @returns {Promise<BlogPost>} Promise that resolves to the blog post object
+ * @throws {ApiException} If the API request fails or the post is not found
+ */
 async function fetchBlogPost(postId: string): Promise<BlogPost> {
   return apiFetch<BlogPost>(`/blog/${postId}`)
 }
