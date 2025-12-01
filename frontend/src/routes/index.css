@@ -15,12 +15,12 @@
 
 .hero {
   margin-bottom: 8rem;
-  padding: 4rem 2.5rem 6rem;
+  padding: 4rem 0rem 6rem;
   position: relative;
   overflow: hidden;
 }
 
-.hero::before {
+/* .hero::before {
   content: '';
   position: absolute;
   top: -50%;
@@ -44,7 +44,7 @@
   border-radius: 50%;
   pointer-events: none;
   z-index: -1;
-}
+} */
 
 .hero-content {
   max-width: 800px;
@@ -207,6 +207,13 @@
   overflow: hidden;
 }
 
+.project-card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  cursor: pointer;
+}
+
 .project-card::before {
   content: '';
   position: absolute;
@@ -259,6 +266,10 @@
   margin-bottom: 0.5rem;
 }
 
+.project-card-link .project-name {
+  color: var(--accent);
+}
+
 .project-period {
   font-size: 0.9rem;
   color: var(--text-tertiary);
@@ -301,16 +312,6 @@
   color: var(--accent);
 }
 
-.project-link {
-  color: var(--accent);
-  text-decoration: none;
-  transition: all 0.2s ease;
-}
-
-.project-link:hover {
-  color: var(--accent-hover);
-  text-decoration: underline;
-}
 
 .work-section {
   margin-bottom: 8rem;
