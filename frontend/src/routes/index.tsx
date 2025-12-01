@@ -1,5 +1,8 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { useQuery } from '@tanstack/react-query'
+import { apiFetch, ApiException } from '../utils/api'
+import { ProjectCardSkeleton, WorkCardSkeleton } from '../components/SkeletonLoader'
+import { SEO } from '../components/SEO'
 import './index.css'
 
 interface PersonalInfo {
@@ -34,24 +37,16 @@ interface WorkExperience {
   technologies: string[]
 }
 
-const API_BASE = import.meta.env.VITE_API_URL || '/api'
-
 async function fetchPersonalInfo(): Promise<PersonalInfo> {
-  const response = await fetch(`${API_BASE}/personal`)
-  if (!response.ok) throw new Error('Failed to fetch personal info')
-  return response.json()
+  return apiFetch<PersonalInfo>('/personal')
 }
 
 async function fetchProjects(): Promise<Project[]> {
-  const response = await fetch(`${API_BASE}/projects`)
-  if (!response.ok) throw new Error('Failed to fetch projects')
-  return response.json()
+  return apiFetch<Project[]>('/projects')
 }
 
 async function fetchWorkExperience(): Promise<WorkExperience[]> {
-  const response = await fetch(`${API_BASE}/work-experience`)
-  if (!response.ok) throw new Error('Failed to fetch work experience')
-  return response.json()
+  return apiFetch<WorkExperience[]>('/work-experience')
 }
 
 export const Route = createFileRoute('/')({
@@ -59,31 +54,93 @@ export const Route = createFileRoute('/')({
 })
 
 function Home() {
-  const { data: personalInfo, isLoading: loadingPersonal } = useQuery({
+  const { data: personalInfo, isLoading: loadingPersonal, error: personalError } = useQuery({
     queryKey: ['personal'],
     queryFn: fetchPersonalInfo,
+    retry: 3,
+    retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
   })
 
-  const { data: projects, isLoading: loadingProjects } = useQuery({
+  const { data: projects, isLoading: loadingProjects, error: projectsError } = useQuery({
     queryKey: ['projects'],
     queryFn: fetchProjects,
+    retry: 3,
+    retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
   })
 
-  const { data: workExperience, isLoading: loadingWork } = useQuery({
+  const { data: workExperience, isLoading: loadingWork, error: workError } = useQuery({
     queryKey: ['workExperience'],
     queryFn: fetchWorkExperience,
+    retry: 3,
+    retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
   })
 
-  if (loadingPersonal || loadingProjects || loadingWork) {
+  const isLoading = loadingPersonal || loadingProjects || loadingWork
+  const hasError = personalError || projectsError || workError
+
+  if (isLoading) {
+    return (
+      <div className="home">
+        <div className="container">
+          <section className="hero">
+            <div className="hero-content">
+              <div className="skeleton" style={{ height: '3rem', width: '60%', marginBottom: '1rem' }}></div>
+              <div className="skeleton" style={{ height: '1.5rem', width: '40%', marginBottom: '0.5rem' }}></div>
+              <div className="skeleton" style={{ height: '1rem', width: '30%', marginBottom: '2rem' }}></div>
+              <div className="skeleton" style={{ height: '1rem', width: '100%', marginBottom: '0.75rem' }}></div>
+              <div className="skeleton" style={{ height: '1rem', width: '90%', marginBottom: '0.75rem' }}></div>
+            </div>
+          </section>
+          <section className="projects-section">
+            <h2 className="section-title">Key Projects</h2>
+            <div className="projects-grid">
+              <ProjectCardSkeleton />
+              <ProjectCardSkeleton />
+              <ProjectCardSkeleton />
+            </div>
+          </section>
+          <section className="work-section">
+            <h2 className="section-title">Work Experience</h2>
+            <div className="work-grid">
+              <WorkCardSkeleton />
+              <WorkCardSkeleton />
+            </div>
+          </section>
+        </div>
+      </div>
+    )
+  }
+
+  if (hasError) {
+    const error = personalError || projectsError || workError
+    const errorMessage = error instanceof ApiException 
+      ? error.message 
+      : 'Failed to load content. Please try refreshing the page.'
+    
     return (
       <div className="container">
-        <div className="loading">Loading...</div>
+        <div className="error-state">
+          <h2 className="error-title">Unable to Load Content</h2>
+          <p className="error-message">{errorMessage}</p>
+          <button 
+            onClick={() => window.location.reload()} 
+            className="error-retry-button"
+            aria-label="Retry loading content"
+          >
+            Retry
+          </button>
+        </div>
       </div>
     )
   }
 
   return (
     <div className="home">
+      <SEO 
+        title={`${personalInfo?.name} - ${personalInfo?.title}`}
+        description={personalInfo?.summary}
+        url="https://dotunlonge.vercel.app"
+      />
       <div className="container">
         {/* Hero Section */}
         <section className="hero">
