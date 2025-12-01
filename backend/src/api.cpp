@@ -38,9 +38,9 @@ namespace api {
   "summary": "Senior Software Engineer with 8+ years experience building high-performance systems, full-stack applications, and AI/Web3 products for startups, agencies, and global teams. I specialize in TypeScript, Rust, AI/LLMs, and decentralized technologies.",
   "skills": [
     "TypeScript", "Rust", "Solidity", "JavaScript", "Python",
-    "Next.js", "React", "NestJS", "Hono", "Express.js", "Node.js",
+    "Next.js", "React", "NestJS", "Bun", "Hono", "Express.js", "Node.js",
     "OpenAI", "Gemini", "Anthropic", "Pinecone", "LangChain", "LlamaIndex",
-    "Ethers.js", "Web3.js", "Wagmi", "Hardhat", "Foundry", "Anchor", "Stellar SDK",
+    "Ethers.js", "Web3.js", "Wagmi", "Hardhat", "Stellar SDK",
     "Docker", "Kubernetes", "Redis", "Kafka", "RabbitMQ",
     "AWS", "GCP", "Azure", "Vercel",
     "PostgreSQL", "MySQL", "MongoDB", "Prisma", "Supabase",
@@ -55,15 +55,15 @@ namespace api {
     "name": "Bange.io",
     "description": "AI Career Copilot - Built AI-powered resume, cover letter, job search and interview workflows using LLMs and vector search. Architected TypeScript/Next.js frontend + Nest.js API layer with Gemini/OpenAI integrations. Implemented smart feedback, job analysis, and scalable session management.",
     "period": "2024",
-    "technologies": ["TypeScript", "Next.js", "NestJS", "Gemini", "OpenAI", "Vector Search"],
+    "technologies": ["TypeScript", "Next.js", "Bun", "Tauri", "NestJS", "Gemini", "OpenAI", "Azure", "Vector Search"],
     "highlight": "AI-powered career tools that help professionals optimize their job applications",
     "url": "https://bange.io"
   },
   {
     "name": "Omni Brain",
-    "description": "AI RAG Platform - Built a full RAG pipeline using Pinecone + OpenAI/Gemini for multi-source knowledge retrieval. Developed high-performance Rust & TypeScript backend for embeddings, chunking, and semantic search. Integrated dashboards, role-based access, and streaming responses for conversational AI workflows.",
+    "description": "AI RAG Platform - Built a full RAG pipeline using Pinecone + LLMs for multi-source knowledge retrieval. Developed high-performance Rust & TypeScript backend for embeddings, chunking, and semantic search. Integrated dashboards, role-based access, and streaming responses for conversational AI workflows.",
     "period": "2025",
-    "technologies": ["Rust", "TypeScript", "Pinecone", "OpenAI", "Gemini", "RAG"],
+    "technologies": ["Rust", "TypeScript", "Pinecone", "LLMs", "RAG", "Azure"],
     "highlight": "Enterprise-grade AI platform for intelligent knowledge retrieval and conversational AI",
     "url": "https://omin-live.vercel.app"
   },
@@ -143,7 +143,7 @@ namespace api {
     "position": "Full Stack Engineer",
     "period": "2023-2024",
     "funding": "$15M raised",
-    "description": "Built a Web3 security platform end-to-end: backend, frontend, and data pipelines. Designed REST APIs for wallet analysis, chain risk scoring, and third-party integrations. Increased code coverage to 90% using automated testing + CI pipelines. Reduced deployment time from days to minutes with containerized GitHub Actions.",
+    "description": "Built a Web3 security platform end-to-end: backend, frontend, and data pipelines. Designed REST APIs for wallet analysis, and third-party integrations. Reduced deployment time from days to minutes with containerized GitHub Actions.",
     "technologies": ["TypeScript", "React", "Node.js", "Web3", "Docker", "Kubernetes", "CI/CD"]
   },
   {
