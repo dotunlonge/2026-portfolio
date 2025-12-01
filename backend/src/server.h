@@ -23,6 +23,9 @@ private:
     
     void handleRequest(int client_fd);
     std::string parsePath(const std::string& request);
+    std::string getMethod(const std::string& request);
+    bool validatePath(const std::string& path);
+    bool validateId(const std::string& id);
     std::string createResponse(const std::string& body, const std::string& contentType = "application/json", int statusCode = 200);
     std::string readFile(const std::string& path);
     std::string getAllowedOrigin();
