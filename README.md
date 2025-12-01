@@ -93,23 +93,6 @@ The frontend will start on `http://localhost:3000`
 
 The frontend uses Vite for fast HMR (Hot Module Replacement). The backend is a simple HTTP server that can be rebuilt when changes are made.
 
-## Deployment
-
-### Railway Deployment
-
-This portfolio can be deployed to Railway in two services (backend and frontend).
-
-**Quick Start:**
-1. See `RAILWAY_QUICK_START.md` for a 5-minute deployment guide
-2. See `RAILWAY_DEPLOYMENT.md` for detailed instructions
-
-**Key Steps:**
-- Deploy backend service with root directory `backend`
-- Deploy frontend service with root directory `frontend`
-- Set `VITE_API_URL` environment variable in frontend service to your backend URL
-
-The backend automatically reads the `PORT` environment variable that Railway provides.
-
 ## License
 
 MIT
