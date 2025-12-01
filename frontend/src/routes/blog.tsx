@@ -13,6 +13,12 @@ interface BlogPost {
   category: string
 }
 
+/**
+ * Fetches the list of all blog posts from the API.
+ * 
+ * @returns {Promise<BlogPost[]>} Promise that resolves to an array of blog post objects
+ * @throws {ApiException} If the API request fails
+ */
 async function fetchBlogPosts(): Promise<BlogPost[]> {
   return apiFetch<BlogPost[]>('/blog')
 }
@@ -81,6 +87,21 @@ function Blog() {
     )
   }
 
+  /**
+   * Formats an ISO date string into a human-readable format.
+   * 
+   * Converts dates like "2025-01-20" to "January 20, 2025".
+   * Uses the US locale with long month names for consistency.
+   * 
+   * @param {string} dateString - ISO date string (e.g., "2025-01-20")
+   * @returns {string} Formatted date string (e.g., "January 20, 2025")
+   * 
+   * @example
+   * ```typescript
+   * formatDate('2025-01-20') // Returns: "January 20, 2025"
+   * formatDate('2024-12-25') // Returns: "December 25, 2024"
+   * ```
+   */
   const formatDate = (dateString: string) => {
     const date = new Date(dateString)
     return date.toLocaleDateString('en-US', { 
