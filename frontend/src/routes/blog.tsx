@@ -25,18 +25,19 @@ function Blog() {
   const router = useRouterState()
   const isPostPage = router.location.pathname !== '/blog'
   
-  // If we're on a post page, render the outlet (child route)
-  if (isPostPage) {
-    return <Outlet />
-  }
-
-  // Otherwise, render the blog list
+  // Call useQuery before any early returns to follow React's rules of hooks
   const { data: posts, isLoading, error } = useQuery({
     queryKey: ['blogPosts'],
     queryFn: fetchBlogPosts,
     retry: 3,
     retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
+    enabled: !isPostPage, // Only fetch when not on a post page
   })
+  
+  // If we're on a post page, render the outlet (child route)
+  if (isPostPage) {
+    return <Outlet />
+  }
 
   if (isLoading) {
     return (
