@@ -64,6 +64,7 @@ function RootComponent() {
             >
               <Link to="/" className="nav-link" onClick={closeMenu} role="menuitem">Home</Link>
               <Link to="/blog" className="nav-link" onClick={closeMenu} role="menuitem">Blog</Link>
+              <Link to="/games" className="nav-link" onClick={closeMenu} role="menuitem">Games</Link>
               <a 
                 href="/Oludotun Longe - Software Engineer Resume.pdf" 
                 download="Oludotun-Longe-Resume.pdf"
