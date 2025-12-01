@@ -1,10 +1,14 @@
-import React from 'react'
+import React, { lazy, Suspense } from 'react'
 import ReactDOM from 'react-dom/client'
-import { RouterProvider, createRouter } from '@tanstack/react-router'
+import { RouterProvider, createRouter, NotFoundRoute } from '@tanstack/react-router'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { routeTree } from './routeTree.gen'
 import { ThemeProvider } from './ThemeContext'
+import { ErrorBoundary } from './components/ErrorBoundary'
 import './index.css'
+
+// Lazy load routes for code splitting
+const NotFound = lazy(() => import('./routes/404').then(m => ({ default: m.NotFound })))
 
 // Hydrate from SSR data if available
 const initialData = (window as any).__INITIAL_DATA__
@@ -55,8 +59,19 @@ if (initialData) {
   }
 }
 
+// 404 route
+const notFoundRoute = new NotFoundRoute({
+  getParentRoute: () => routeTree,
+  component: () => (
+    <Suspense fallback={<div className="container"><div className="loading">Loading...</div></div>}>
+      <NotFound />
+    </Suspense>
+  ),
+})
+
 const router = createRouter({ 
   routeTree,
+  notFoundRoute,
   // Enable preloading for better perceived performance
   defaultPreload: 'intent',
 })
@@ -77,7 +92,9 @@ if (rootElement.hasChildNodes()) {
     <React.StrictMode>
       <ThemeProvider>
         <QueryClientProvider client={queryClient}>
-          <RouterProvider router={router} />
+          <ErrorBoundary>
+            <RouterProvider router={router} />
+          </ErrorBoundary>
         </QueryClientProvider>
       </ThemeProvider>
     </React.StrictMode>
@@ -88,10 +105,21 @@ if (rootElement.hasChildNodes()) {
     <React.StrictMode>
       <ThemeProvider>
         <QueryClientProvider client={queryClient}>
-          <RouterProvider router={router} />
+          <ErrorBoundary>
+            <RouterProvider router={router} />
+          </ErrorBoundary>
         </QueryClientProvider>
       </ThemeProvider>
     </React.StrictMode>
   )
+}
+
+// Register service worker for PWA
+if ('serviceWorker' in navigator && import.meta.env.PROD) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').catch(() => {
+      // Service worker registration failed, but app should still work
+    })
+  })
 }
 
