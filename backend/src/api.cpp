@@ -37,14 +37,15 @@ namespace api {
   "linkedin": "https://www.linkedin.com/in/oludotunlonge",
   "summary": "Senior Software Engineer with 8+ years experience building high-performance systems, full-stack applications, and AI/Web3 products for startups, agencies, and global teams. I specialize in TypeScript, Rust, AI/LLMs, and decentralized technologies.",
   "skills": [
-    "TypeScript", "Rust", "Solidity", "JavaScript", "Python",
-    "Next.js", "React", "NestJS", "Bun", "Hono", "Express.js", "Node.js",
+    "TypeScript", "Rust", "Solidity", "JavaScript", "Python", "PHP", "Ruby on Rails", "C++", "C#", "Swift",
+    "Tanstack Start", "Next.js", "React", "NestJS", "Bun", "Hono", "Express.js", "Node.js", "GraphQL", "REST",
     "OpenAI", "Gemini", "Anthropic", "Pinecone", "LangChain", "LlamaIndex",
     "Ethers.js", "Web3.js", "Wagmi", "Hardhat", "Stellar SDK",
     "Docker", "Kubernetes", "Redis", "Kafka", "RabbitMQ",
-    "AWS", "GCP", "Azure", "Vercel",
-    "PostgreSQL", "MySQL", "MongoDB", "Prisma", "Supabase",
-    "Tauri", "Expo", "GraphQL", "REST", "Microservices", "API Gateways"
+    "AWS", "GCP", "Azure",
+    "Vercel", "Railway", "Heroku", "VPS", "Cloudflare",
+    "PostgreSQL", "MySQL", "MongoDB", "Prisma", "Supabase", "Firebase",
+    "Tauri", "Electron","Expo", "Microservices", "API Gateways", "CI/CD", "DevOps"
   ]
 })XXX";
     }
@@ -55,7 +56,7 @@ namespace api {
     "name": "Bange.io",
     "description": "AI Career Copilot - Built AI-powered resume, cover letter, job search and interview workflows using LLMs and vector search. Architected TypeScript/Next.js frontend + Nest.js API layer with Gemini/OpenAI integrations. Implemented smart feedback, job analysis, and scalable session management.",
     "period": "2024",
-    "technologies": ["TypeScript", "Next.js", "Bun", "Tauri", "NestJS", "Gemini", "OpenAI", "Azure", "Vector Search"],
+    "technologies": ["TypeScript", "Next.js", "Bun", "Tauri", "NestJS", "LLMs", "Azure", "Vector Search"],
     "highlight": "AI-powered career tools that help professionals optimize their job applications",
     "url": "https://bange.io"
   },
