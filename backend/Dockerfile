@@ -42,5 +42,6 @@ COPY --from=builder /app/build/portfolio-server /usr/local/bin/portfolio-server
 EXPOSE 8080
 
 # Run the server (reads PORT from environment)
-CMD ["portfolio-server"]
+# Use exec form with full path
+CMD ["/usr/local/bin/portfolio-server"]
 
