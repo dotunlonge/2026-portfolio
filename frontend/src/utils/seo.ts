@@ -12,6 +12,40 @@ export interface SEOData {
   tags?: string[]
 }
 
+/**
+ * Generates a complete set of HTML meta tags for SEO optimization.
+ * 
+ * Creates meta tags for:
+ * - Basic SEO (title, description, author, keywords)
+ * - Open Graph (for social media sharing)
+ * - Twitter Cards
+ * - Article metadata (if type is 'article')
+ * - Canonical URLs
+ * - Structured data (JSON-LD)
+ * 
+ * @param {SEOData} data - SEO configuration object
+ * @param {string} [data.title] - Page title
+ * @param {string} [data.description] - Meta description
+ * @param {string} [data.image] - Open Graph image URL
+ * @param {string} [data.url] - Canonical URL
+ * @param {string} [data.type] - Content type ('website' or 'article')
+ * @param {string} [data.author] - Author name
+ * @param {string} [data.publishedTime] - ISO date string for publication
+ * @param {string} [data.modifiedTime] - ISO date string for modification
+ * @param {string[]} [data.tags] - Array of keyword tags
+ * 
+ * @returns {string} HTML string containing all meta tags
+ * 
+ * @example
+ * ```typescript
+ * const metaTags = generateMetaTags({
+ *   title: 'My Blog Post',
+ *   description: 'A great article',
+ *   type: 'article',
+ *   tags: ['tech', 'programming']
+ * })
+ * ```
+ */
 export function generateMetaTags(data: SEOData): string {
   const {
     title = 'Oludotun Longe - Senior Software Engineer',
@@ -62,6 +96,25 @@ export function generateMetaTags(data: SEOData): string {
   return metaTags
 }
 
+/**
+ * Escapes HTML special characters to prevent XSS attacks and ensure valid HTML.
+ * 
+ * Converts potentially dangerous characters to their HTML entity equivalents:
+ * - & → &amp;
+ * - < → &lt;
+ * - > → &gt;
+ * - " → &quot;
+ * - ' → &#039;
+ * 
+ * @param {string} text - The text to escape
+ * @returns {string} The escaped text safe for use in HTML attributes
+ * 
+ * @example
+ * ```typescript
+ * escapeHtml('<script>alert("xss")</script>')
+ * // Returns: "&lt;script&gt;alert(&quot;xss&quot;)&lt;/script&gt;"
+ * ```
+ */
 function escapeHtml(text: string): string {
   const map: Record<string, string> = {
     '&': '&amp;',
@@ -73,6 +126,28 @@ function escapeHtml(text: string): string {
   return text.replace(/[&<>"']/g, m => map[m])
 }
 
+/**
+ * Generates JSON-LD structured data script tag for search engines.
+ * 
+ * Creates structured data following Schema.org vocabulary:
+ * - BlogPosting schema for articles
+ * - Person schema for personal pages
+ * 
+ * This helps search engines understand the content structure and can improve
+ * search result appearance with rich snippets.
+ * 
+ * @param {SEOData} data - SEO configuration object
+ * @returns {string} HTML script tag containing JSON-LD structured data
+ * 
+ * @example
+ * ```typescript
+ * const structuredData = generateStructuredData({
+ *   type: 'article',
+ *   title: 'My Post',
+ *   publishedTime: '2025-01-20'
+ * })
+ * ```
+ */
 function generateStructuredData(data: SEOData): string {
   const baseSchema = {
     '@context': 'https://schema.org',
