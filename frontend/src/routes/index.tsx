@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query'
 import { apiFetch, ApiException } from '../utils/api'
 import { ProjectCardSkeleton, WorkCardSkeleton } from '../components/SkeletonLoader'
 import { SEO } from '../components/SEO'
+import { LazyImage } from '../components/LazyImage'
 import './index.css'
 
 interface PersonalInfo {
@@ -16,6 +17,9 @@ interface PersonalInfo {
   linkedin: string
   summary: string
   skills: string[]
+  skillsByCategory?: {
+    [key: string]: string[]
+  }
 }
 
 interface Project {
@@ -52,6 +56,29 @@ async function fetchWorkExperience(): Promise<WorkExperience[]> {
 export const Route = createFileRoute('/')({
   component: Home,
 })
+
+// Simple icon mapping for technologies
+function getTechIcon(tech: string): JSX.Element | null {
+  const iconMap: { [key: string]: string } = {
+    'TypeScript': 'TS',
+    'JavaScript': 'JS',
+    'React': '⚛️',
+    'Node.js': '🟢',
+    'Python': '🐍',
+    'Rust': '🦀',
+    'Next.js': '▲',
+    'AWS': '☁️',
+    'Docker': '🐳',
+    'Kubernetes': '☸️',
+    'PostgreSQL': '🐘',
+    'MongoDB': '🍃',
+    'GraphQL': '◈',
+    'Git': '📦',
+  }
+  
+  const icon = iconMap[tech] || '•'
+  return <span className="tech-icon" aria-hidden="true">{icon}</span>
+}
 
 function Home() {
   const { data: personalInfo, isLoading: loadingPersonal, error: personalError } = useQuery({
@@ -140,6 +167,9 @@ function Home() {
         title={`${personalInfo?.name} - ${personalInfo?.title}`}
         description={personalInfo?.summary}
         url="https://dotunlonge.vercel.app"
+        breadcrumbs={[
+          { name: 'Home', url: 'https://dotunlonge.vercel.app/' }
+        ]}
       />
       <div className="container">
         {/* Hero Section */}
@@ -150,6 +180,18 @@ function Home() {
             <p className="hero-location">{personalInfo?.location}</p>
             <p className="hero-summary">{personalInfo?.summary}</p>
             <div className="hero-links">
+              <a 
+                href="/Oludotun Longe - Software Engineer Resume.pdf" 
+                download="Oludotun-Longe-Resume.pdf"
+                className="hero-link hero-link-primary"
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ marginRight: '0.5rem' }}>
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                Download Resume
+              </a>
               <a href={`mailto:${personalInfo?.email}`} className="hero-link">
                 Email
               </a>
@@ -226,11 +268,32 @@ function Home() {
         {/* Skills Section */}
         <section className="skills-section">
           <h2 className="section-title">Technologies</h2>
-          <div className="skills-grid">
-            {personalInfo?.skills.map((skill, index) => (
-              <span key={index} className="skill-item">{skill}</span>
-            ))}
-          </div>
+          {personalInfo?.skillsByCategory ? (
+            <div className="skills-categories">
+              {Object.entries(personalInfo.skillsByCategory).map(([category, skills]) => (
+                <div key={category} className="skill-category">
+                  <h3 className="skill-category-title">{category}</h3>
+                  <div className="skills-grid">
+                    {skills.map((skill, index) => (
+                      <span key={index} className="skill-item">
+                        {getTechIcon(skill)}
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="skills-grid">
+              {personalInfo?.skills.map((skill, index) => (
+                <span key={index} className="skill-item">
+                  {getTechIcon(skill)}
+                  {skill}
+                </span>
+              ))}
+            </div>
+          )}
         </section>
       </div>
     </div>
