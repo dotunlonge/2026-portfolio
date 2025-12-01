@@ -35,7 +35,7 @@ namespace api {
   "github": "https://github.com/dotunlonge",
   "website": "https://dotunlonge.vercel.app",
   "linkedin": "https://www.linkedin.com/in/oludotunlonge",
-  "summary": "Senior Software Engineer with 8+ years experience building high-performance systems, full-stack applications, and AI/Web3 products for startups, agencies, and global teams. I specialize in TypeScript, Rust, AI/LLMs, and decentralized technologies.",
+  "summary": "Software Engineer with 8+ years experience building systems, full-stack applications, and AI/Web3 products for startups, agencies, and global teams. Worked across diverse domains including AI assistants, Web3 security, healthcare, media platforms, and fintech. Built products from early stage to scale, handling everything from infrastructure to payments to user-facing features.",
   "skills": [
     "TypeScript", "Rust", "Solidity", "JavaScript", "Python", "PHP", "Ruby on Rails", "C++", "C#", "Swift",
     "Tanstack Start", "Next.js", "React", "NestJS", "Bun", "Hono", "Express.js", "Node.js", "GraphQL", "REST",
@@ -46,7 +46,18 @@ namespace api {
     "Vercel", "Railway", "Heroku", "VPS", "Cloudflare",
     "PostgreSQL", "MySQL", "MongoDB", "Prisma", "Supabase", "Firebase",
     "Tauri", "Electron","Expo", "Microservices", "API Gateways", "CI/CD", "DevOps"
-  ]
+  ],
+  "skillsByCategory": {
+    "Languages": ["TypeScript", "Rust", "JavaScript", "Python", "PHP", "Ruby on Rails", "C++", "C#", "Swift", "Solidity"],
+    "Frontend": ["React", "Next.js", "Tanstack Start", "Expo"],
+    "Backend": ["Node.js", "NestJS", "Express.js", "Hono", "Bun", "GraphQL", "REST"],
+    "AI/ML": ["OpenAI", "Gemini", "Anthropic", "Pinecone", "LangChain", "LlamaIndex"],
+    "Web3": ["Ethers.js", "Web3.js", "Wagmi", "Hardhat", "Stellar SDK"],
+    "Infrastructure": ["Docker", "Kubernetes", "Redis", "Kafka", "RabbitMQ", "CI/CD", "DevOps", "Microservices", "API Gateways"],
+    "Cloud": ["AWS", "GCP", "Azure", "Vercel", "Railway", "Heroku", "VPS", "Cloudflare"],
+    "Databases": ["PostgreSQL", "MySQL", "MongoDB", "Prisma", "Supabase", "Firebase"],
+    "Desktop/Mobile": ["Tauri", "Electron"]
+  }
 })XXX";
     }
 
@@ -54,7 +65,7 @@ namespace api {
         return R"XXX([
   {
     "name": "Bange.io",
-    "description": "AI Career Copilot - Built AI-powered resume, cover letter, job search and interview workflows using LLMs and vector search. Architected TypeScript/Next.js frontend + Nest.js API layer with Gemini/OpenAI integrations. Implemented smart feedback, job analysis, and scalable session management.",
+    "description": "AI Career Copilot - Built AI-powered resume, cover letter, job search and interview workflows using LLMs and vector search. Architected TypeScript/Next.js frontend + Nest.js API layer with Gemini/OpenAI integrations. Implemented smart feedback, job analysis, and scalable session management. Grew to 1000+ users with active monthly and yearly paying customers.",
     "period": "2024",
     "technologies": ["TypeScript", "Next.js", "Bun", "Tauri", "NestJS", "LLMs", "Azure", "Vector Search"],
     "highlight": "AI-powered career tools that help professionals optimize their job applications",
@@ -62,15 +73,15 @@ namespace api {
   },
   {
     "name": "Omni Brain",
-    "description": "AI RAG Platform - Built a full RAG pipeline using Pinecone + LLMs for multi-source knowledge retrieval. Developed high-performance Rust & TypeScript backend for embeddings, chunking, and semantic search. Integrated dashboards, role-based access, and streaming responses for conversational AI workflows.",
+    "description": "AI RAG Platform - Built a full RAG pipeline using Pinecone + LLMs for multi-source knowledge retrieval. Developed Rust & TypeScript backend for embeddings, chunking, and semantic search. Integrated dashboards, role-based access, and streaming responses for conversational AI workflows.",
     "period": "2025",
     "technologies": ["Rust", "TypeScript", "Pinecone", "LLMs", "RAG", "Azure"],
-    "highlight": "Enterprise-grade AI platform for intelligent knowledge retrieval and conversational AI",
+    "highlight": "AI platform for intelligent knowledge retrieval and conversational AI",
     "url": "https://omin-live.vercel.app"
   },
   {
     "name": "Linda Ikeji TV",
-    "description": "Media platform development - Built scalable infrastructure and features for one of Nigeria's leading media platforms.",
+    "description": "Media platform development - Built the main frontend (95% of the work) and admin frontend for one of Nigeria's leading media platforms. Developed backend service leveraging AWS to convert and load videos from regular formats to HLS format for streaming.",
     "period": "2018",
     "technologies": ["TypeScript", "React", "Node.js", "AWS"],
     "highlight": "Scalable media platform serving millions of users",
@@ -143,8 +154,8 @@ namespace api {
     "position": "Full Stack Engineer",
     "period": "2023-2024",
     "funding": "$15M raised",
-    "description": "Built a Web3 security platform end-to-end: backend, frontend, and data pipelines. Designed REST APIs for wallet analysis, and third-party integrations. Reduced deployment time from days to minutes with containerized GitHub Actions.",
-    "technologies": ["TypeScript", "React", "Node.js", "Web3", "Docker", "Kubernetes", "CI/CD"]
+    "description": "Built crypto payments infrastructure to accept blockchain-based transactions. Developed prompt-to-visualization product enabling users to explore connections between transactions and accounts on the blockchain through natural language queries. Designed REST APIs for wallet analysis and third-party integrations. Reduced deployment time from days to minutes with containerized GitHub Actions.",
+    "technologies": ["TypeScript", "React", "Node.js", "Web3", "Blockchain", "Docker", "Kubernetes", "CI/CD"]
   },
   {
     "company": "PBR Life Sciences",
@@ -152,8 +163,8 @@ namespace api {
     "position": "Full Stack Engineer",
     "period": "Sep 2023 — Dec 2023",
     "funding": "$1M raised through Techsters",
-    "description": "Designed AI/ML-ready APIs for healthcare data systems. Improved UX and frontend performance, increasing engagement by 30%. Built dashboards, admin tools, and analytics modules. Integrated AWS infrastructure for AI/ML workloads.",
-    "technologies": ["TypeScript", "React", "Node.js", "AWS", "AI/ML"]
+    "description": "Developed 3 products in rapid succession for pharmaceutical sales data visualization. Built Versus, an invite-only SaaS platform allowing companies to visualize PBR's pharmaceutical sales data in tables and charts. Wrote the backend leveraging SQL queries for data retrieval, authentication, server hosting, and testing. Contributed to the frontend client rendering the data. Built a Stripe-powered e-commerce platform for PBR products. Developed another platform similar to Versus but for a different dataset. All products integrated with Amazon SageMaker for ML data processing.",
+    "technologies": ["TypeScript", "React", "Node.js", "AWS", "Amazon SageMaker", "SQL", "Stripe", "Full Stack"]
   },
   {
     "company": "Fireflies.ai",
@@ -161,7 +172,7 @@ namespace api {
     "position": "Full Stack Engineer",
     "period": "Jan 2018 — Jan 2021",
     "funding": "Now worth $1 billion",
-    "description": "Built major features for the AI meeting assistant used worldwide. Developed the payments infrastructure and backend microservices. Delivered API endpoints, data ingestion pipelines, and analytics. Collaborated with ML teams to support AI transcription workflows.",
+    "description": "Joined as an early engineer building the AI meeting assistant used worldwide. Built calendar integrations enabling the AI to automatically join scheduled meetings. Developed the teammates feature allowing users to add team members to plans. Built the payments infrastructure handling subscription billing and revenue collection. Delivered API endpoints, data ingestion pipelines, and analytics. Collaborated with ML teams to support AI transcription workflows.",
     "technologies": ["TypeScript", "React", "Node.js", "Python", "AI/ML", "Microservices"]
   },
   {
@@ -170,16 +181,16 @@ namespace api {
     "position": "Full Stack Engineer",
     "period": "Apr 2018 — Jun 2019",
     "funding": "Joined HatchLabs accelerator program",
-    "description": "Built a blockchain-powered crowdsourcing platform for SDG projects. Integrated Stellar blockchain SDK for decentralized financial flows. Built full-stack features across UI, API, and backend architecture.",
-    "technologies": ["TypeScript", "React", "Node.js", "Stellar SDK", "Blockchain", "Web3"]
+    "description": "Led development of blockchain-powered platform ensuring transparency in Sustainable Development Goal projects across Africa. Took ownership of Stellar JS SDK integration enabling transparent real-time fund tracking, building workflows bridging complex ledger data to intuitive frontend dashboards. Led design and engineering of the Sela Web Platform, collaborating with design, backend, and mobile teams. Built dashboards, media upload interfaces, and project tracking systems that enabled pilots in Makoko and Port-Harcourt. Contributed to growing the engineering team by interviewing, vetting, and onboarding backend and mobile engineers.",
+    "technologies": ["TypeScript", "React", "Node.js", "Stellar SDK", "Blockchain", "Web3", "Full Stack"]
   },
   {
-    "company": "Upwork",
+    "company": "Freelance (Upwork & Direct Clients)",
     "location": "Global",
     "position": "Full Stack Engineer",
     "period": "Jan 2021 — Present",
     "funding": "",
-    "description": "Delivered production-level applications for global clients using React, TypeScript, and Node.js. Built dashboards, marketplaces, finance tools, and enterprise systems. Ensured performance, reliability, and scalable architecture.",
+    "description": "Delivered production-level applications for global clients through Upwork and direct engagements. Built an Excel-like table feature for LucidDreams (2023). Developed nestSafari, an Airbnb clone platform. Built the official web platform with custom blog for Investiv, an agriculture drone company specializing in aerial solutions for West Africa, using React static. Delivered dashboards, marketplaces, finance tools, and enterprise systems across diverse industries.",
     "technologies": ["TypeScript", "React", "Node.js", "Full Stack"]
   },
   {
@@ -188,8 +199,8 @@ namespace api {
     "position": "Full Stack Engineer",
     "period": "Jan 2018 — Jun 2018",
     "funding": "",
-    "description": "Developed frontends and dashboards for fintech, media, and enterprise clients. Implemented scalable UI architectures and component systems.",
-    "technologies": ["React", "JavaScript", "UI/UX", "Frontend"]
+    "description": "Built GTBank's Bank 737 web platform using PHP and React. Developed frontend for CICO, a time tracking platform. Worked on the Linda Ikeji TV project during this period.",
+    "technologies": ["React", "PHP", "JavaScript", "Frontend"]
   },
   {
     "company": "Planet NEST",
@@ -197,10 +208,87 @@ namespace api {
     "position": "Full Stack Engineer",
     "period": "Feb 2017 — Dec 2017",
     "funding": "",
-    "description": "Built websites and platforms with React, PHP, and JavaScript. Taught junior developers within the talent accelerator program.",
-    "technologies": ["React", "PHP", "JavaScript", "Teaching"]
+    "description": "Built the initial Nigerian Women Techsters platform (frontend and backend), a platform that has trained 1000+ Nigerian women in tech and STEM skills. Developed gidicompare, a platform to compare prices of different products. Taught others how to code and collaborated with the CTO on various side projects.",
+    "technologies": ["React", "PHP", "JavaScript", "Teaching", "Full Stack"]
   }
 ])XXX";
+    }
+
+    std::string getLeaderboardJson(const std::string& gameId) {
+        if (gameId == "snake-3d") {
+            return R"XXX([
+  {
+    "rank": 1,
+    "player": "Dotun",
+    "score": 450,
+    "date": "2025-01-20"
+  },
+  {
+    "rank": 2,
+    "player": "Guest",
+    "score": 320,
+    "date": "2025-01-19"
+  },
+  {
+    "rank": 3,
+    "player": "Player1",
+    "score": 280,
+    "date": "2025-01-18"
+  },
+  {
+    "rank": 4,
+    "player": "Gamer",
+    "score": 210,
+    "date": "2025-01-17"
+  },
+  {
+    "rank": 5,
+    "player": "Test",
+    "score": 180,
+    "date": "2025-01-16"
+  }
+])XXX";
+        } else if (gameId == "space-shooter") {
+            return R"XXX([
+  {
+    "rank": 1,
+    "player": "Dotun",
+    "score": 1250,
+    "wave": 13,
+    "date": "2025-01-20"
+  },
+  {
+    "rank": 2,
+    "player": "Guest",
+    "score": 980,
+    "wave": 10,
+    "date": "2025-01-19"
+  },
+  {
+    "rank": 3,
+    "player": "Player1",
+    "score": 750,
+    "wave": 8,
+    "date": "2025-01-18"
+  },
+  {
+    "rank": 4,
+    "player": "Gamer",
+    "score": 620,
+    "wave": 7,
+    "date": "2025-01-17"
+  },
+  {
+    "rank": 5,
+    "player": "Test",
+    "score": 450,
+    "wave": 5,
+    "date": "2025-01-16"
+  }
+])XXX";
+        }
+        
+        return "[]";
     }
 }
 
