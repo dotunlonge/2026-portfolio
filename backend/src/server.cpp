@@ -9,6 +9,7 @@
 #include <vector>
 #include <cstdlib>
 #include <cstring>
+#include <cctype>
 
 SimpleHTTPServer::SimpleHTTPServer(int port) : port_(port), server_fd_(-1), running_(false) {}
 
@@ -31,10 +32,55 @@ std::string SimpleHTTPServer::parsePath(const std::string& request) {
         std::istringstream lineStream(line);
         std::string method, path, protocol;
         if (lineStream >> method >> path >> protocol) {
+            // Remove query parameters
+            size_t queryPos = path.find('?');
+            if (queryPos != std::string::npos) {
+                path = path.substr(0, queryPos);
+            }
             return path;
         }
     }
     return "";
+}
+
+std::string SimpleHTTPServer::getMethod(const std::string& request) {
+    std::istringstream iss(request);
+    std::string line;
+    if (std::getline(iss, line)) {
+        std::istringstream lineStream(line);
+        std::string method;
+        if (lineStream >> method) {
+            return method;
+        }
+    }
+    return "";
+}
+
+bool SimpleHTTPServer::validatePath(const std::string& path) {
+    // Basic path validation - prevent path traversal
+    if (path.find("..") != std::string::npos) {
+        return false;
+    }
+    // Only allow alphanumeric, slashes, hyphens, underscores, and colons
+    for (char c : path) {
+        if (!std::isalnum(c) && c != '/' && c != '-' && c != '_' && c != ':') {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool SimpleHTTPServer::validateId(const std::string& id) {
+    // Validate ID format - alphanumeric and hyphens only
+    if (id.empty() || id.length() > 100) {
+        return false;
+    }
+    for (char c : id) {
+        if (!std::isalnum(c) && c != '-') {
+            return false;
+        }
+    }
+    return true;
 }
 
 
@@ -90,10 +136,23 @@ void SimpleHTTPServer::handleRequest(int client_fd) {
     }
     
     std::string request(buffer, bytes_read);
+    std::string method = getMethod(request);
     std::string path = parsePath(request);
     
+    // Log request (basic middleware)
+    std::cout << "[" << method << "] " << path << std::endl;
+    
+    // Validate path
+    if (!validatePath(path)) {
+        std::string response_body = "{\"error\": \"Invalid path\"}";
+        std::string response = createResponse(response_body, "application/json", 400);
+        send(client_fd, response.c_str(), response.length(), 0);
+        close(client_fd);
+        return;
+    }
+    
     // Handle OPTIONS for CORS
-    if (request.find("OPTIONS") == 0) {
+    if (method == "OPTIONS") {
         std::string allowed_origin = getAllowedOrigin();
         std::string response = "HTTP/1.1 200 OK\r\n"
                               "Access-Control-Allow-Origin: " + allowed_origin + "\r\n"
@@ -101,6 +160,15 @@ void SimpleHTTPServer::handleRequest(int client_fd) {
                               "Access-Control-Allow-Headers: Content-Type\r\n"
                               "Access-Control-Allow-Credentials: true\r\n"
                               "\r\n";
+        send(client_fd, response.c_str(), response.length(), 0);
+        close(client_fd);
+        return;
+    }
+    
+    // Only allow GET and OPTIONS methods
+    if (method != "GET" && method != "OPTIONS") {
+        std::string response_body = "{\"error\": \"Method not allowed\"}";
+        std::string response = createResponse(response_body, "application/json", 405);
         send(client_fd, response.c_str(), response.length(), 0);
         close(client_fd);
         return;
@@ -116,6 +184,16 @@ void SimpleHTTPServer::handleRequest(int client_fd) {
     // Check parameterized routes
     else if (path.find("/api/blog/") == 0) {
         std::string id = path.substr(10); // Remove "/api/blog/"
+        
+        // Validate ID
+        if (!validateId(id)) {
+            response_body = "{\"error\": \"Invalid blog post ID\"}";
+            std::string response = createResponse(response_body, content_type, 400);
+            send(client_fd, response.c_str(), response.length(), 0);
+            close(client_fd);
+            return;
+        }
+        
         if (param_routes_.find("/api/blog/:id") != param_routes_.end()) {
             response_body = param_routes_["/api/blog/:id"](id);
             if (response_body == "{}") {
@@ -131,6 +209,31 @@ void SimpleHTTPServer::handleRequest(int client_fd) {
             send(client_fd, response.c_str(), response.length(), 0);
             close(client_fd);
             return;
+        }
+    }
+    else if (path.find("/api/games/") == 0 && path.find("/leaderboard") != std::string::npos) {
+        // Extract game ID from path like "/api/games/snake-3d/leaderboard"
+        size_t gamesPos = path.find("/api/games/");
+        size_t leaderboardPos = path.find("/leaderboard");
+        if (gamesPos != std::string::npos && leaderboardPos != std::string::npos) {
+            std::string id = path.substr(11, leaderboardPos - 11); // Extract game ID
+            
+            // Validate ID
+            if (!validateId(id)) {
+                response_body = "{\"error\": \"Invalid game ID\"}";
+                std::string response = createResponse(response_body, content_type, 400);
+                send(client_fd, response.c_str(), response.length(), 0);
+                close(client_fd);
+                return;
+            }
+            
+            if (param_routes_.find("/api/games/:id/leaderboard") != param_routes_.end()) {
+                response_body = param_routes_["/api/games/:id/leaderboard"](id);
+            } else {
+                response_body = "[]";
+            }
+        } else {
+            response_body = "[]";
         }
     }
     else {
