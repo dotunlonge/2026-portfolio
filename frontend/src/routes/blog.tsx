@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from '@tanstack/react-router'
+import { createFileRoute, Link, Outlet, useRouterState } from '@tanstack/react-router'
 import { useQuery } from '@tanstack/react-query'
 import './blog.css'
 
@@ -23,6 +23,15 @@ export const Route = createFileRoute('/blog')({
 })
 
 function Blog() {
+  const router = useRouterState()
+  const isPostPage = router.location.pathname !== '/blog'
+  
+  // If we're on a post page, render the outlet (child route)
+  if (isPostPage) {
+    return <Outlet />
+  }
+
+  // Otherwise, render the blog list
   const { data: posts, isLoading } = useQuery({
     queryKey: ['blogPosts'],
     queryFn: fetchBlogPosts,
