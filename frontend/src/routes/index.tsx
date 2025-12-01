@@ -4,6 +4,7 @@ import { apiFetch, ApiException } from '../utils/api'
 import { ProjectCardSkeleton, WorkCardSkeleton } from '../components/SkeletonLoader'
 import { SEO } from '../components/SEO'
 import { LazyImage } from '../components/LazyImage'
+import { PerformanceMetrics } from '../components/PerformanceMetrics'
 import './index.css'
 
 interface PersonalInfo {
@@ -296,6 +297,7 @@ function Home() {
           )}
         </section>
       </div>
+      <PerformanceMetrics />
     </div>
   )
 }
