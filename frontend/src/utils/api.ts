@@ -1,4 +1,11 @@
-// API utility to handle both development and production URLs
+/**
+ * Determines the base API URL based on the current environment.
+ * 
+ * In production, uses the VITE_API_URL environment variable if set.
+ * In development, defaults to '/api' which is proxied by Vite to the backend server.
+ * 
+ * @returns {string} The base API URL for making requests
+ */
 const getApiUrl = () => {
   // In production, use the environment variable or default to relative path
   if (import.meta.env.VITE_API_URL) {
@@ -16,10 +23,27 @@ export interface ApiError {
   statusText?: string
 }
 
+/**
+ * Custom error class for API-related errors.
+ * Extends the native Error class to include HTTP status information.
+ * 
+ * @class ApiException
+ * @extends {Error}
+ * 
+ * @property {number} [status] - HTTP status code (e.g., 404, 500)
+ * @property {string} [statusText] - HTTP status text (e.g., "Not Found", "Internal Server Error")
+ */
 export class ApiException extends Error {
   status?: number
   statusText?: string
 
+  /**
+   * Creates an instance of ApiException.
+   * 
+   * @param {string} message - Human-readable error message
+   * @param {number} [status] - HTTP status code
+   * @param {string} [statusText] - HTTP status text
+   */
   constructor(message: string, status?: number, statusText?: string) {
     super(message)
     this.name = 'ApiException'
@@ -28,6 +52,31 @@ export class ApiException extends Error {
   }
 }
 
+/**
+ * Fetches data from the API with comprehensive error handling and retry logic.
+ * 
+ * This function:
+ * - Handles both development and production API URLs
+ * - Adds cache-busting query parameters in development mode
+ * - Parses error responses from the server
+ * - Converts network errors into ApiException instances
+ * - Always bypasses browser cache for fresh data
+ * 
+ * @template T - The expected return type of the API response
+ * 
+ * @param {string} endpoint - API endpoint path (e.g., '/personal', '/projects')
+ * @param {RequestInit} [options] - Optional fetch configuration (method, body, headers, etc.)
+ * 
+ * @returns {Promise<T>} A promise that resolves to the parsed JSON response
+ * 
+ * @throws {ApiException} Throws an ApiException for HTTP errors or network failures
+ * 
+ * @example
+ * ```typescript
+ * const personalInfo = await apiFetch<PersonalInfo>('/personal')
+ * const projects = await apiFetch<Project[]>('/projects', { method: 'GET' })
+ * ```
+ */
 export async function apiFetch<T>(endpoint: string, options?: RequestInit): Promise<T> {
   // Build URL - add cache-busting in development mode only
   let url = `${API_BASE_URL}${endpoint}`
