@@ -100,7 +100,7 @@ function BlogPostDetail() {
         <article className="blog-post-article">
           <div className="article-meta">
             <span className="article-category">{post.category}</span>
-            <span className="article-date">{formatDate(post.date)}</span>
+            {/* <span className="article-date">{formatDate(post.date)}</span> */}
           </div>
 
           <h1 className="article-title">{post.title}</h1>
