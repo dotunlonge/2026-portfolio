@@ -33,7 +33,7 @@ namespace api {
   "phone": "+234 817 009 6535",
   "email": "olududotunlonge@gmail.com",
   "github": "https://github.com/dotunlonge",
-  "website": "https://dotunlonge.com",
+  "website": "https://dotunlonge.vercel.app",
   "linkedin": "https://www.linkedin.com/in/oludotunlonge",
   "summary": "Senior Software Engineer with 8+ years experience building high-performance systems, full-stack applications, and AI/Web3 products for startups, agencies, and global teams. I specialize in TypeScript, Rust, AI/LLMs, and decentralized technologies.",
   "skills": [
@@ -89,8 +89,6 @@ namespace api {
         result += getBlogPostJson("boundless-space");
         result += ",";
         result += getBlogPostJson("origins-of-life");
-        result += ",";
-        result += getBlogPostJson("future-1000-years");
         result += "]";
         return result;
     }
@@ -131,15 +129,6 @@ namespace api {
   "date": "2025-01-05",
   "category": "Origins of Life",
   "content": "The question of how life began is one of humanity's greatest mysteries. Traditional theories suggest that life emerged from a primordial soup on early Earth, a series of chemical reactions that somehow crossed the threshold from non-living to living matter.\n\nBut what if we're asking the wrong question? What if life didn't 'originate' at all, but has always existed in some form, scattered across the cosmos like cosmic seeds?\n\nConsider the panspermia hypothesis taken to its logical extreme. If the universe is infinite and has existed for billions of years, then life—or the precursors to life—might have emerged countless times, in countless places. These biological building blocks could have been spread across galaxies by comets, asteroids, and cosmic winds.\n\nBut let's go even further. What if life isn't a rare, precious phenomenon, but a fundamental property of the universe itself? Just as matter and energy are basic components of reality, perhaps life—or at least the potential for life—is woven into the fabric of spacetime.\n\nIn this view, the emergence of life on Earth wasn't a miraculous accident, but an inevitable expression of cosmic principles. The universe, in its infinite creativity, naturally gives rise to complex, self-organizing systems. Life is just one manifestation of this universal tendency toward complexity.\n\nThis perspective also suggests that life might take forms we can't even imagine. On distant worlds, under conditions we consider impossible, life might exist as pure energy, as information patterns, as quantum states. Our carbon-based, water-dependent biology might be just one way that the universe expresses its creative potential.\n\nPerhaps the most profound implication is this: if life is a fundamental property of the cosmos, then we're not alone in the universe. We're part of a vast, cosmic ecosystem—a living universe that has been evolving and diversifying for billions of years.\n\nAnd if that's true, then the question isn't 'How did life begin?' but 'How is life continuing to evolve?' We're not the endpoint of evolution, but a single branch in an infinite tree of biological possibility."
-})XXX";
-        } else if (id == "future-1000-years") {
-            return R"XXX({
-  "id": "future-1000-years",
-  "title": "The Year 3025: A Vision of Humanity's Distant Future",
-  "excerpt": "What will human civilization look like 1000 years from now? A speculative journey into a future where biology and technology have merged beyond recognition.",
-  "date": "2025-01-01",
-  "category": "Future",
-  "content": "It's the year 3025. Humanity has transformed beyond recognition, not through destruction, but through evolution—both biological and technological. The boundary between human and machine, organic and synthetic, has dissolved into something entirely new.\n\nIn this future, consciousness isn't confined to biological bodies. Humans exist as distributed networks, their minds spread across quantum computers, biological nodes, and cloud-based neural clusters. A single person might simultaneously experience life as a physical body on Mars, as a data stream exploring the outer planets, and as a virtual entity in a simulated universe.\n\nEarth has become a nature preserve—a carefully managed ecosystem where the planet's original biosphere is protected and restored. Most of humanity lives in orbital habitats, on terraformed planets, or in vast space stations that drift between stars. Cities float in the clouds of gas giants, extract resources from asteroid belts, and orbit distant suns.\n\nTechnology has advanced to the point where it's indistinguishable from magic—or perhaps, from nature itself. Self-replicating nanobots maintain ecosystems, repair structures, and even create new worlds. Matter can be assembled atom by atom, energy can be harvested from the quantum vacuum, and information can be transmitted instantaneously across any distance.\n\nBut the most profound change is in how humans relate to time and mortality. Death, as we understand it, no longer exists. Consciousness can be backed up, transferred, and restored. People can choose to live for centuries, millennia, or indefinitely. Some choose to experience time at different rates—spending a subjective year in a few objective minutes, or stretching a single moment into years of contemplation.\n\nThis has created entirely new forms of society. Some groups exist as hive minds, sharing thoughts and experiences. Others maintain individual consciousness but can merge temporarily for complex problem-solving. There are communities that exist entirely in virtual realities, and others that have transcended physical form entirely, existing as pure information patterns.\n\nYet, despite all this change, some things remain constant. The drive to explore, to create, to understand. The curiosity that led us to the stars still burns bright. The universe, infinite and mysterious, still calls to us.\n\nIn 3025, humanity has become a cosmic species—not just living in space, but as part of space itself. We've merged with the universe, and in doing so, we've become something new: not human, not machine, but something that transcends both.\n\nAnd the journey is just beginning. The universe is infinite, and so is our potential. In another thousand years, we might be something we can't even imagine today—and that's the most exciting part of all."
 })XXX";
         }
         
