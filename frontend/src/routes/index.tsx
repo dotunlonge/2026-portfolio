@@ -297,7 +297,7 @@ function Home() {
           )}
         </section>
       </div>
-      <PerformanceMetrics />
+      {/* <PerformanceMetrics /> */}
     </div>
   )
 }
