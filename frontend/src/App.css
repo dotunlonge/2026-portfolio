@@ -150,27 +150,42 @@ main {
     width: 0;
     height: 100vh;
     background-color: var(--bg-primary);
+    backdrop-filter: blur(20px);
     flex-direction: column;
-    gap: 2rem;
+    gap: 1.5rem;
     padding: 5rem 2rem 2rem;
     overflow: hidden;
-    transition: width 0.3s ease;
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
     z-index: 100;
-    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    pointer-events: none;
   }
 
   [data-theme='light'] .nav-links {
-    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.05);
+    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.95);
   }
 
   .nav-links.open {
-    width: 280px;
+    width: min(320px, 85vw);
+    opacity: 1;
+    pointer-events: all;
   }
 
   .nav-link {
     width: 100%;
-    padding: 0.75rem 0;
+    padding: 1rem 0;
     border-bottom: 1px solid var(--border);
+    transition: all 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .nav-link:active {
+    transform: scale(0.98);
+    background-color: var(--bg-secondary);
+    padding-left: 0.5rem;
+    border-radius: 4px;
   }
 
   .nav-link:last-of-type {
