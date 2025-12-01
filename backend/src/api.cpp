@@ -65,7 +65,7 @@ namespace api {
         return R"XXX([
   {
     "name": "Bange.io",
-    "description": "AI Career Copilot - Built AI-powered resume, cover letter, job search and interview workflows using LLMs and vector search. Architected TypeScript/Next.js frontend + Nest.js API layer with Gemini/OpenAI integrations. Implemented smart feedback, job analysis, and scalable session management. Grew to 1000+ users with active monthly and yearly paying customers.",
+    "description": "AI Career Copilot - Built AI-powered resume, cover letter, job search and interview workflows using LLMs and vector search. Architected TypeScript/Next.js frontend + Nest.js API layer with LLM integrations. Implemented smart feedback, job analysis, and scalable session management. Grew to 1000+ users with active monthly and yearly paying customers.",
     "period": "2024",
     "technologies": ["TypeScript", "Next.js", "Bun", "Tauri", "NestJS", "LLMs", "Azure", "Vector Search"],
     "highlight": "AI-powered career tools that help professionals optimize their job applications",
