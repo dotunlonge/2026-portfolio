@@ -11,6 +11,44 @@ interface SEOProps {
   breadcrumbs?: Array<{ name: string; url: string }>
 }
 
+/**
+ * SEO component that dynamically updates meta tags, Open Graph tags, Twitter Cards,
+ * structured data (JSON-LD), and canonical URLs for optimal search engine optimization.
+ * 
+ * This component:
+ * - Updates document title and meta description
+ * - Sets Open Graph tags for social media sharing
+ * - Configures Twitter Card metadata
+ * - Generates structured data (JSON-LD) for Person, WebSite, BlogPosting, and BreadcrumbList schemas
+ * - Manages canonical URLs
+ * - Handles article-specific metadata for blog posts
+ * 
+ * @param {SEOProps} props - SEO configuration object
+ * @param {string} [props.title] - Page title (defaults to portfolio title)
+ * @param {string} [props.description] - Meta description
+ * @param {string} [props.image] - Open Graph image URL
+ * @param {string} [props.url] - Canonical URL of the page
+ * @param {string} [props.type] - Content type ('website' or 'article')
+ * @param {string} [props.publishedDate] - ISO date string for article publication
+ * @param {string} [props.modifiedDate] - ISO date string for article modification
+ * @param {Array<{name: string, url: string}>} [props.breadcrumbs] - Breadcrumb navigation items
+ * 
+ * @returns {null} This component doesn't render any UI
+ * 
+ * @example
+ * ```tsx
+ * <SEO 
+ *   title="My Blog Post"
+ *   description="A fascinating article about..."
+ *   type="article"
+ *   publishedDate="2025-01-20"
+ *   breadcrumbs={[
+ *     { name: 'Home', url: 'https://example.com/' },
+ *     { name: 'Blog', url: 'https://example.com/blog' }
+ *   ]}
+ * />
+ * ```
+ */
 export function SEO({ 
   title = 'Oludotun Longe - Senior Software Engineer',
   description = 'Senior Software Engineer with 8+ years experience building high-performance systems, full-stack applications, and AI/Web3 products.',
@@ -25,7 +63,13 @@ export function SEO({
     // Update document title
     document.title = title
 
-    // Update or create meta tags
+    /**
+     * Updates or creates a meta tag in the document head.
+     * 
+     * @param {string} name - The name or property attribute value
+     * @param {string} content - The content value for the meta tag
+     * @param {boolean} [isProperty=false] - If true, uses 'property' attribute (for Open Graph), otherwise 'name'
+     */
     const updateMetaTag = (name: string, content: string, isProperty = false) => {
       const attribute = isProperty ? 'property' : 'name'
       let meta = document.querySelector(`meta[${attribute}="${name}"]`)
