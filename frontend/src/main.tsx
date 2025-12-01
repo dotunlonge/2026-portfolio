@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client'
 import { RouterProvider, createRouter, NotFoundRoute } from '@tanstack/react-router'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { routeTree } from './routeTree.gen'
+import { Route as RootRoute } from './routes/__root'
 import { ThemeProvider } from './ThemeContext'
 import { ErrorBoundary } from './components/ErrorBoundary'
 import './index.css'
@@ -61,7 +62,7 @@ if (initialData) {
 
 // 404 route
 const notFoundRoute = new NotFoundRoute({
-  getParentRoute: () => routeTree,
+  getParentRoute: () => RootRoute,
   component: () => (
     <Suspense fallback={<div className="container"><div className="loading">Loading...</div></div>}>
       <NotFound />
