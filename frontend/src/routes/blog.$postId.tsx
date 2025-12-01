@@ -85,6 +85,12 @@ function BlogPostDetail() {
         description={post.excerpt}
         url={`https://dotunlonge.vercel.app/blog/${post.id}`}
         type="article"
+        publishedDate={post.date}
+        breadcrumbs={[
+          { name: 'Home', url: 'https://dotunlonge.vercel.app/' },
+          { name: 'Blog', url: 'https://dotunlonge.vercel.app/blog' },
+          { name: post.title, url: `https://dotunlonge.vercel.app/blog/${post.id}` }
+        ]}
       />
       <div className="container">
         <Link to="/blog" className="back-link">
@@ -94,7 +100,7 @@ function BlogPostDetail() {
         <article className="blog-post-article">
           <div className="article-meta">
             <span className="article-category">{post.category}</span>
-            {/* <span className="article-date">{formatDate(post.date)}</span> */}
+            <span className="article-date">{formatDate(post.date)}</span>
           </div>
 
           <h1 className="article-title">{post.title}</h1>
