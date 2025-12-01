@@ -210,29 +210,51 @@ function Home() {
         <section className="projects-section">
           <h2 className="section-title">Key Projects</h2>
           <div className="projects-grid">
-            {projects?.map((project, index) => (
-              <div key={index} className="project-card">
-                <div className="project-header">
-                  <h3 className="project-name">
-                    {project.url ? (
-                      <a href={project.url} target="_blank" rel="noopener noreferrer" className="project-link">
-                        {project.name} →
-                      </a>
-                    ) : (
-                      project.name
-                    )}
-                  </h3>
-                  <span className="project-period">{project.period}</span>
+            {projects?.map((project, index) => {
+              const CardContent = () => (
+                <>
+                  <div className="project-header">
+                    <h3 className="project-name">
+                      {project.url ? (
+                        <>
+                          {project.name} →
+                        </>
+                      ) : (
+                        project.name
+                      )}
+                    </h3>
+                    <span className="project-period">{project.period}</span>
+                  </div>
+                  <p className="project-highlight">{project.highlight}</p>
+                  <p className="project-description">{project.description}</p>
+                  <div className="project-tech">
+                    {project.technologies.map((tech, techIndex) => (
+                      <span key={techIndex} className="tech-tag">{tech}</span>
+                    ))}
+                  </div>
+                </>
+              )
+
+              if (project.url) {
+                return (
+                  <a
+                    key={index}
+                    href={project.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="project-card project-card-link"
+                  >
+                    <CardContent />
+                  </a>
+                )
+              }
+
+              return (
+                <div key={index} className="project-card">
+                  <CardContent />
                 </div>
-                <p className="project-highlight">{project.highlight}</p>
-                <p className="project-description">{project.description}</p>
-                <div className="project-tech">
-                  {project.technologies.map((tech, techIndex) => (
-                    <span key={techIndex} className="tech-tag">{tech}</span>
-                  ))}
-                </div>
-              </div>
-            ))}
+              )
+            })}
           </div>
         </section>
 
