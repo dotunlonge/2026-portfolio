@@ -95,6 +95,10 @@ function Blog() {
         title="Sci-Fi Musings - Blog | Oludotun Longe"
         description="Exploring the infinite possibilities of time, space, and existence"
         url="https://dotunlonge.vercel.app/blog"
+        breadcrumbs={[
+          { name: 'Home', url: 'https://dotunlonge.vercel.app/' },
+          { name: 'Blog', url: 'https://dotunlonge.vercel.app/blog' }
+        ]}
       />
       <div className="container">
         <div className="blog-header">
@@ -109,7 +113,7 @@ function Blog() {
             <article key={post.id} className="blog-post-card">
               <div className="post-meta">
                 <span className="post-category">{post.category}</span>
-                {/* <span className="post-date">{formatDate(post.date)}</span> */}
+                <span className="post-date">{formatDate(post.date)}</span>
               </div>
               <Link 
                 to="/blog/$postId" 
