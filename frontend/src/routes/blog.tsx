@@ -69,7 +69,7 @@ function Blog() {
             <article key={post.id} className="blog-post-card">
               <div className="post-meta">
                 <span className="post-category">{post.category}</span>
-                <span className="post-date">{formatDate(post.date)}</span>
+                {/* <span className="post-date">{formatDate(post.date)}</span> */}
               </div>
               <Link 
                 to="/blog/$postId" 
