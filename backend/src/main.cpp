@@ -48,6 +48,10 @@ int main() {
         return api::getWorkExperienceJson();
     });
     
+    server.addRouteWithParam("/api/games/:id/leaderboard", [](const std::string& id) {
+        return api::getLeaderboardJson(id);
+    });
+    
     std::cout << "Starting Portfolio Server..." << std::endl;
     std::cout << "API Endpoints:" << std::endl;
     std::cout << "  GET /api/personal" << std::endl;
@@ -55,6 +59,7 @@ int main() {
     std::cout << "  GET /api/blog" << std::endl;
     std::cout << "  GET /api/blog/:id" << std::endl;
     std::cout << "  GET /api/work-experience" << std::endl;
+    std::cout << "  GET /api/games/:id/leaderboard" << std::endl;
     std::cout << std::endl;
     
     server.start();
