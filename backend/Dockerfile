@@ -1,6 +1,6 @@
-# Railway-specific Dockerfile
-# This assumes Railway root directory is set to "backend"
-# If using from project root, use the paths in the main Dockerfile
+# Alternative Dockerfile for backend when building from project root
+# Use this if Railway doesn't detect the backend/Dockerfile automatically
+# Or rename this to Dockerfile and place in project root
 
 # Build stage
 FROM ubuntu:22.04 AS builder
@@ -16,10 +16,10 @@ RUN apt-get update && apt-get install -y \
 # Set working directory
 WORKDIR /app
 
-# Copy source files (relative to backend/ directory)
-COPY CMakeLists.txt ./
-COPY include/ ./include/
-COPY src/ ./src/
+# Copy source files (from project root)
+COPY backend/CMakeLists.txt ./
+COPY backend/include/ ./include/
+COPY backend/src/ ./src/
 
 # Build the application
 RUN mkdir -p build && cd build && \
