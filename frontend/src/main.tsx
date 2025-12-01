@@ -17,11 +17,12 @@ const initialData = (window as any).__INITIAL_DATA__
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 1000 * 60 * 5, // 5 minutes - cache data for better performance
-      gcTime: 1000 * 60 * 10, // 10 minutes - keep in cache
+      staleTime: 1000 * 30, // 30 seconds - shorter cache for fresher data
+      gcTime: 1000 * 60 * 5, // 5 minutes - keep in cache
       retry: 3, // Retry failed requests 3 times
       retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000), // Exponential backoff
-      refetchOnWindowFocus: false, // Don't refetch on window focus
+      refetchOnWindowFocus: true, // Refetch when window regains focus
+      refetchOnMount: true, // Always refetch on mount to get fresh data
     },
   },
 })
