@@ -10,12 +10,66 @@ const getApiUrl = () => {
 
 export const API_BASE_URL = getApiUrl()
 
-export async function apiFetch(endpoint: string, options?: RequestInit) {
-  const url = `${API_BASE_URL}${endpoint}`
-  const response = await fetch(url, options)
-  if (!response.ok) {
-    throw new Error(`API error: ${response.statusText}`)
+export interface ApiError {
+  message: string
+  status?: number
+  statusText?: string
+}
+
+export class ApiException extends Error {
+  status?: number
+  statusText?: string
+
+  constructor(message: string, status?: number, statusText?: string) {
+    super(message)
+    this.name = 'ApiException'
+    this.status = status
+    this.statusText = statusText
   }
-  return response.json()
+}
+
+export async function apiFetch<T>(endpoint: string, options?: RequestInit): Promise<T> {
+  const url = `${API_BASE_URL}${endpoint}`
+  
+  try {
+    const response = await fetch(url, {
+      ...options,
+      headers: {
+        'Content-Type': 'application/json',
+        ...options?.headers,
+      },
+    })
+
+    if (!response.ok) {
+      let errorMessage = `API error: ${response.statusText}`
+      
+      // Try to parse error message from response
+      try {
+        const errorData = await response.json()
+        if (errorData.error) {
+          errorMessage = errorData.error
+        } else if (errorData.message) {
+          errorMessage = errorData.message
+        }
+      } catch {
+        // If JSON parsing fails, use default message
+      }
+
+      throw new ApiException(errorMessage, response.status, response.statusText)
+    }
+
+    return response.json()
+  } catch (error) {
+    if (error instanceof ApiException) {
+      throw error
+    }
+    
+    // Network errors or other fetch failures
+    if (error instanceof TypeError && error.message.includes('fetch')) {
+      throw new ApiException('Network error: Unable to connect to the server. Please check your connection.', 0, 'Network Error')
+    }
+    
+    throw new ApiException(error instanceof Error ? error.message : 'An unexpected error occurred')
+  }
 }
 
