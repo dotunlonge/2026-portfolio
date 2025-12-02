@@ -90,7 +90,7 @@ function RootComponent() {
               <Link to="/" className="nav-link" onClick={closeMenu} role="menuitem">Home</Link>
               <Link to="/blog" className="nav-link" onClick={closeMenu} role="menuitem">Blog</Link>
               <a 
-                href="/Oludotun Longe - Software Engineer Resume.pdf" 
+                href="/Oludotun Longe - Software-Engineer-Resume.pdf" 
                 download="Oludotun-Longe-Resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
