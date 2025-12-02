@@ -77,6 +77,33 @@ export const Route = createFileRoute('/')({
 })
 
 /**
+ * Formats a project period string, preserving year-only values.
+ * 
+ * Key Projects use year-only values (e.g., "2024", "2025") which should never
+ * be formatted with months. This function ensures year-only periods are returned
+ * as-is without any date formatting or month conversion.
+ * 
+ * @param {string} period - Period string (e.g., "2024", "2025", or "Jan 2018 — Jun 2019")
+ * @returns {string} The period string as-is, without any date formatting
+ * 
+ * @example
+ * ```typescript
+ * formatProjectPeriod('2024') // Returns: "2024"
+ * formatProjectPeriod('2025') // Returns: "2025"
+ * formatProjectPeriod('Jan 2018 — Jun 2019') // Returns: "Jan 2018 — Jun 2019"
+ * ```
+ */
+function formatProjectPeriod(period: string): string {
+  // If period is just a 4-digit year, return it as-is without any formatting
+  // This prevents year-only values from being converted to dates like "January, 2024"
+  if (/^\d{4}$/.test(period.trim())) {
+    return period.trim()
+  }
+  // For other formats (e.g., date ranges), return as-is
+  return period
+}
+
+/**
  * Returns a visual icon or abbreviation for a given technology name.
  * 
  * Maps common technology names to emoji icons or abbreviations for better
@@ -257,7 +284,7 @@ function Home() {
                         project.name
                       )}
                     </h3>
-                    <span className="project-period">{project.period}</span>
+                    <span className="project-period">{formatProjectPeriod(project.period)}</span>
                   </div>
                   <p className="project-highlight">{project.highlight}</p>
                   <p className="project-description">{project.description}</p>
