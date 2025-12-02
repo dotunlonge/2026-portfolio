@@ -61,13 +61,17 @@ namespace api {
 })XXX";
     }
 
+    // Returns JSON array of key projects.
+    // NOTE: Project periods are year-only values (e.g., "2024", "2025") and should never
+    // be formatted with months or converted to date objects. They must remain as simple
+    // year strings to avoid unwanted formatting like "January, 2024".
     std::string getProjectsJson() {
         return R"XXX([
   {
     "name": "Bange.io",
     "description": "AI Career Copilot - Built AI-powered resume, cover letter, job search and interview workflows using LLMs and vector search. Architected TypeScript/Next.js frontend + Nest.js API layer with LLM integrations. Implemented smart feedback, job analysis, and scalable session management. Grew to 1000+ users with active monthly and yearly paying customers.",
     "period": "2024",
-    "technologies": ["TypeScript", "Next.js", "Bun", "Tauri", "NestJS", "LLMs", "Azure", "Vector Search"],
+    "technologies": ["TypeScript", "Rust", "Next.js", "Bun", "Tauri", "NestJS", "LLMs", "Azure", "Vector Search"],
     "highlight": "AI-powered career tools that help professionals optimize their job applications",
     "url": "https://bange.io"
   },
@@ -83,7 +87,7 @@ namespace api {
     "name": "Linda Ikeji TV",
     "description": "Media platform development - Built the main frontend (95% of the work) and admin frontend for one of Nigeria's leading media platforms. Developed backend service leveraging AWS to convert and load videos from regular formats to HLS format for streaming.",
     "period": "2018",
-    "technologies": ["TypeScript", "React", "Node.js", "AWS"],
+    "technologies": ["TypeScript", "React", "Node.js", "Express.js", "AWS"],
     "highlight": "Scalable media platform serving millions of users",
     "url": "https://x.com/lindaikejitv?lang=en"
   }
