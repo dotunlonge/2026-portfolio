@@ -243,7 +243,7 @@ function Home() {
             <p className="hero-summary">{personalInfo?.summary}</p>
             <div className="hero-links">
               <a 
-                href="/Oludotun Longe - Software Engineer Resume.pdf" 
+                href="/Oludotun Longe - Software-Engineer-Resume.pdf" 
                 download="Oludotun-Longe-Resume.pdf"
                 className="hero-link hero-link-primary"
               >
