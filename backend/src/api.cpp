@@ -1,32 +1,47 @@
 #include "../include/api.h"
-#include <sstream>
 #include <iomanip>
+#include <sstream>
 
 namespace api {
-    std::string escapeJson(const std::string& str) {
-        std::ostringstream o;
-        for (size_t i = 0; i < str.length(); ++i) {
-            switch (str[i]) {
-                case '"': o << "\\\""; break;
-                case '\\': o << "\\\\"; break;
-                case '\b': o << "\\b"; break;
-                case '\f': o << "\\f"; break;
-                case '\n': o << "\\n"; break;
-                case '\r': o << "\\r"; break;
-                case '\t': o << "\\t"; break;
-                default:
-                    if ('\x00' <= str[i] && str[i] <= '\x1f') {
-                        o << "\\u" << std::hex << std::setw(4) << std::setfill('0') << (int)str[i];
-                    } else {
-                        o << str[i];
-                    }
-            }
-        }
-        return o.str();
+std::string escapeJson(const std::string &str) {
+  std::ostringstream o;
+  for (size_t i = 0; i < str.length(); ++i) {
+    switch (str[i]) {
+    case '"':
+      o << "\\\"";
+      break;
+    case '\\':
+      o << "\\\\";
+      break;
+    case '\b':
+      o << "\\b";
+      break;
+    case '\f':
+      o << "\\f";
+      break;
+    case '\n':
+      o << "\\n";
+      break;
+    case '\r':
+      o << "\\r";
+      break;
+    case '\t':
+      o << "\\t";
+      break;
+    default:
+      if ('\x00' <= str[i] && str[i] <= '\x1f') {
+        o << "\\u" << std::hex << std::setw(4) << std::setfill('0')
+          << (int)str[i];
+      } else {
+        o << str[i];
+      }
     }
+  }
+  return o.str();
+}
 
-    std::string getPersonalInfoJson() {
-        return R"XXX({
+std::string getPersonalInfoJson() {
+  return R"XXX({
   "name": "Oludotun Longe",
   "title": "Software Engineer (TypeScript • Rust • AI • Web3)",
   "location": "Lagos, Nigeria",
@@ -59,14 +74,14 @@ namespace api {
     "Desktop/Mobile": ["Tauri", "Electron"]
   }
 })XXX";
-    }
+}
 
-    // Returns JSON array of key projects.
-    // NOTE: Project periods are year-only values (e.g., "2024", "2025") and should never
-    // be formatted with months or converted to date objects. They must remain as simple
-    // year strings to avoid unwanted formatting like "January, 2024".
-    std::string getProjectsJson() {
-        return R"XXX([
+// Returns JSON array of key projects.
+// NOTE: Project periods are year-only values (e.g., "2024", "2025") and should
+// never be formatted with months or converted to date objects. They must remain
+// as simple year strings to avoid unwanted formatting like "January, 2024".
+std::string getProjectsJson() {
+  return R"XXX([
   {
     "name": "Bange.io",
     "description": "AI Career Copilot - Built AI-powered resume, cover letter, job search and interview workflows using LLMs and vector search. Architected TypeScript/Next.js frontend + Nest.js API layer with LLM integrations. Implemented smart feedback, job analysis, and scalable session management. Grew to 1000+ users with active monthly and yearly paying customers.",
@@ -92,23 +107,34 @@ namespace api {
     "url": "https://x.com/lindaikejitv?lang=en"
   }
 ])XXX";
-    }
+}
 
-    std::string getBlogPostsJson() {
-        // Use getBlogPostJson to build the list - simpler approach
-        std::string result = "[";
-        result += getBlogPostJson("cosmic-livestream");
-        result += ",";
-        result += getBlogPostJson("time-travel-paradox");
-        result += ",";
-        result += getBlogPostJson("boundless-space");
-        result += "]";
-        return result;
-    }
+std::string getBlogPostsJson() {
+  // Use getBlogPostJson to build the list - simpler approach
+  std::string result = "[";
+  result += getBlogPostJson("gravitons-dont-exist");
+  result += ",";
+  result += getBlogPostJson("cosmic-livestream");
+  result += ",";
+  result += getBlogPostJson("time-travel-paradox");
+  result += ",";
+  result += getBlogPostJson("boundless-space");
+  result += "]";
+  return result;
+}
 
-    std::string getBlogPostJson(const std::string& id) {
-        if (id == "cosmic-livestream") {
-            return R"XXX({
+std::string getBlogPostJson(const std::string &id) {
+  if (id == "gravitons-dont-exist") {
+    return R"XXX({
+  "id": "gravitons-dont-exist",
+  "title": "Maybe Gravitons Don't Exist - And That's the Point",
+  "excerpt": "For decades, physics has been stuck asking 'Where is the graviton?' And honestly? That question might already be wrong. We've been assuming gravity must work like the other forces — quantize it, get a particle, move on. But history should've taught us better.",
+  "date": "2025-12-24",
+  "category": "Physics",
+  "content": "For decades, physics has been stuck asking the same question about gravity:\n\n**Where is the graviton?**\n\nAnd honestly? That question might already be wrong.\n\nWe've been assuming gravity *must* work like the other forces — quantize it, get a particle, move on. But history should've taught us better. We already made this exact mistake once.\n\nLight embarrassed us for it.\n\n## The Double-Slit Lesson We Keep Ignoring\n\nBefore quantum mechanics, light was a mess.\n\n- Sometimes a wave\n- Sometimes a particle\n- Sometimes neither\n- Always confusing\n\nThe double-slit experiment didn't just show wave–particle duality. That's the watered-down version. What it really showed was this:\n\n> **'Wave' and 'particle' are just classical metaphors. Reality doesn't owe us intuition.**\n\nPhotons aren't tiny bullets. Waves aren't literal ripples. Both descriptions fail depending on how you look.\n\nLight is a quantum field. Full stop.\n\nAnd once you accept that, asking *'is light a wave or a particle?'* becomes a bad question.\n\nSo why are we doing the same thing to gravity?\n\n## We Know Gravitational Waves Exist. That's Not the Question.\n\nLIGO settled one thing beyond debate:\n\n**Gravitational waves are real.**\n\nSpacetime ripples. It stretches and squeezes. It propagates information. That's done.\n\nBut here's the mistake:\n\n> **A wave existing does NOT imply a fundamental particle exists.**\n\nSound waves exist. No one is looking for the 'soundon.'\n\nWater waves exist. No one expects a 'wateron.'\n\nPhonons exist — but they're *emergent*, not fundamental. They only make sense inside a medium.\n\nSo if spacetime itself is the medium… what exactly would a graviton even *be*?\n\n## The Graviton Might Be a Category Error\n\nPhotons live *inside* spacetime.\n\nGravity **is** spacetime.\n\nThat difference is everything.\n\nQuantizing electromagnetism works because you're quantizing a field *on top of* a fixed background. Quantizing gravity means quantizing the background itself — distance, time, causality, locality.\n\nAt that point, asking for a particle feels like asking:\n\n- What's the particle of distance?\n- What's the particle of curvature?\n- What's the particle of geometry?\n\nMaybe there isn't one.\n\nMaybe the graviton is just a **mathematical approximation**, the same way phonons are useful but not fundamental.\n\n## 'But Gravity Is Everywhere' — Exactly\n\nA common objection goes like this:\n\n> Gravity is sourced by everything. There's so much of it everywhere. Why don't we see quantum effects?\n\nAnd this is where intuition breaks.\n\nThe more gravity there is, the **less quantum it looks**.\n\nHuge, coherent fields behave classically. Quantum fluctuations average out. This is why a laser doesn't look like individual photons flying around — even though it contains an absurd number of them.\n\nIf gravity is always in an ultra-coherent state, then its particle nature (if any) would be permanently hidden.\n\nNot suppressed by weakness — hidden by smoothness.\n\n## Maybe Gravity Isn't a Force in the First Place\n\nThis is the uncomfortable possibility:\n\nGravity might not be a fundamental interaction like the others.\n\nIt could be:\n\n- emergent\n- statistical\n- geometric\n- informational\n\nThere are serious theories that treat gravity as:\n\n- a thermodynamic effect (like temperature)\n- an entanglement phenomenon\n- a large-scale behavior of microscopic relations\n\nIn those frameworks, looking for gravitons makes as much sense as looking for:\n\n- entropy particles\n- pressure quanta\n- temperature bosons\n\nThose things are real — but not fundamental.\n\n## Physics Has Been Here Before\n\nEvery time physics breaks, it's because we're clinging to a model that worked *too well* in the past.\n\n- Newtonian mechanics broke at high speeds\n- Classical light broke at small scales\n- Absolute time broke entirely\n\nNow spacetime itself might be next.\n\nAnd gravity is the crack where it's breaking.\n\n## The Real Question We Should Be Asking\n\nNot:\n\n> 'Where is the graviton?'\n\nBut:\n\n> **'What is spacetime actually made of?'**\n\nGeometry? Information? Relations? Entanglement? Something we don't even have language for yet?\n\nGravitational waves might be real in the same way sound waves are real — collective, coherent, emergent — without any fundamental particle underneath.\n\n## Final Thought\n\nThe graviton might not be missing.\n\nIt might be **the wrong idea entirely**.\n\nJust like the ether. Just like classical orbits. Just like absolute time.\n\nAnd if that's true, gravity isn't failing to fit into quantum mechanics.\n\nQuantum mechanics is telling us spacetime itself is not what we think it is."
+})XXX";
+  } else if (id == "cosmic-livestream") {
+    return R"XXX({
   "id": "cosmic-livestream",
   "title": "The Universe Is Basically One Big Laggy Livestream",
   "excerpt": "If you have ever complained about slow internet, the universe would like to politely laugh at you. Because the universe runs on the slowest livestream system imaginable.",
@@ -116,8 +142,8 @@ namespace api {
   "category": "Space",
   "content": "If you have ever complained about slow internet, the universe would like to politely laugh at you. Because the universe runs on the slowest livestream system imaginable. Whenever you point a telescope at something very far away, you are not seeing it in real time. You are watching a cosmic replay. A highlight from a very, very old season.\n\nPeople say you are looking into the past. They are right. Light takes time to travel. If a planet is one light year away, you see it the way it was one year ago. If it is a hundred light years away, you are watching its century old memories in your present moment. If it is millions of light years away, congratulations, you are basically a historian.\n\nNow here is the funny part. Flip the situation. Imagine some aliens on a planet one hundred million light years away. They point a telescope at Earth today. What do they see. Dinosaurs. Actual dinosaurs. Big loud lizards doing big loud lizard things. To those aliens this is happening right now. Their clocks are ticking in sync with their viewfinder. They are watching Jurassic Park live while you are just trying to cook noodles in 2025.\n\nThis gets even funnier. Suppose you do something on Earth today. Let's say you wave at the sky. The light from that wave starts heading toward that far away alien planet. It will arrive in one hundred million years. So if the aliens are watching through a telescope, they will see your wave in the year 100,002,025 or whatever calendar they use. They will react in their present. Meanwhile you will be long gone and possibly recycled into six new species.\n\nHere is where human brains start to melt. You might think you could prank them. You imagine watching their livestream of your own past and then calling them to explain what they are seeing. But the universe does not allow that cheat code. Your call also travels at the speed of light. So your message will reach them at exactly the same time as the light from the event they are watching. The universe is basically saying nice try but this is not a time travel loophole.\n\nThis also means if you watch an ancient event from another planet and they watch your ancient event from their planet and both of you try to call each other about it, you will both be stuck in a cosmic customer service queue where nobody gets ahead. The processing time is forever. Literally.\n\nSo yes, somewhere out there, a civilization could be watching Earth's dinosaurs march across a swamp. They are experiencing that moment in their present while you experience memes and rent in yours. But none of you can talk about it until the universe finishes buffering the signal.\n\nThe cosmos is a laggy multiplayer server and everyone is playing with different ping. Yet somehow everything still works. That might be the funniest part of all."
 })XXX";
-        } else if (id == "time-travel-paradox") {
-            return R"XXX({
+  } else if (id == "time-travel-paradox") {
+    return R"XXX({
   "id": "time-travel-paradox",
   "title": "The 1 Over Infinity Problem: A Completely Serious Exploration of Time Travel, Portals, and Human Stupidity",
   "excerpt": "Time travel is one of those ideas humans cannot stop poking at. So I went on a deep tangent about how a real time travel portal would actually behave, and I ended up discovering a simple truth: If time travel ever becomes real, humanity is finished in 12 minutes.",
@@ -125,8 +151,8 @@ namespace api {
   "category": "Time Travel",
   "content": "Time travel is one of those ideas humans cannot stop poking at. Every decade someone publishes a paper, makes a sci fi movie, or tweets a thread about timelines as if the universe is just waiting for our approval to break itself.\n\nSo I went on a deep tangent about how a real time travel portal would actually behave, and I ended up discovering a simple truth:\n\nIf time travel ever becomes real, humanity is finished in 12 minutes.\n\n## **The Two Cheats That Break Reality**\n\nAfter thinking way too hard about time travel logic, two possible models appear. Neither works. Both are hilarious.\n\n### **Cheat A: You create new timelines every time you breathe near a portal**\n\nYou step in. You say hi. Reality instantly forks into Timeline B because you altered something.\n\nYou return to your original timeline because it is still there, except now it is missing you for a while.\n\nYou basically become a walking Git branch.\n\nThe universe already creates black holes. A new timeline is nothing. It would do it for sport.\n\n### **Cheat B: Everything becomes canon for everyone**\n\nThis is where things get stupid.\n\nIf someone goes back in time and kills one important person, billions of people might never be born.\n\nWhich means nobody will be left to remember that anything changed.\n\nWhich means the change is both remembered and not remembered.\n\nWhich means logic packs its bags and leaves the universe.\n\nThis is also how you get Time Travel Wars. And we are far too human to skip that.\n\n## **Entering the Portal Requires a Prayer**\n\nEventually I concluded that the correct description of a true time travel portal is:\n\n**1 over infinity**\n\nIf a portal ever existed, opening it would be like asking the universe to randomly pick one path out of infinite possible futures and say yes.\n\nSo I designed the theoretical API for it.\n\n## **collapse_probability(target_time)**\n\nThis function tells the universe you are stupid enough to attempt this.\n\n## **open_stable_conduit()**\n\nThis tries to stabilize the portal. It never works on the first attempt.\n\n## **pray()**\n\nThis is required. We cannot automate it. Humans must pray manually or the portal crashes.\n\n## **QTA = hash(universe_state || desired_time || your_vibes)**\n\nThis variable determines the timeline you land in.\n\nYour vibes matter. Unfortunately.\n\n## **The Paradox Engine Runs On a Cursed GPU**\n\nEvery time travel machine needs hardware. Preferably bad hardware. Which brings us to the funniest requirement:\n\n*One cursed GPU from AliExpress. Must arrive with coil whine and faint burning smell. This powers the paradox engine.*\n\nIf your GPU is clean, brand new, or functional, the portal refuses to open.\n\nThe universe expects suffering.\n\n## **Why Git Is Required For Time Travel**\n\nTime travel is basically branching.\n\nMerging timelines without conflicts is impossible.\n\nRebasing your birth year will get you killed.\n\nEvery timeline jump should be committed:\n\n```\n\ngit commit -m \"Fixed 2057. Accidentally caused antimatter recession.\"\n\n```\n\n## **The Probability Shear Generator**\n\nHow many GPUs are required to bend time\n\nAll of them.\n\nPreferably overheating.\n\nPreferably screaming.\n\n## **Finally, The Official Blessing**\n\nEvery portal traveler must receive the sacred farewell.\n\nThis is the only message appropriate when someone is about to tear spacetime:\n\n**Godspeed, Idiot**\n\n## **So Is Time Travel Possible**\n\nProbably not.\n\nNot because the physics is impossible.\n\nBut because humans would immediately weaponize it to:\n\n1. win arguments\n\n2. fix relationships\n\n3. delete embarrassing tweets\n\n4. go back to when Bitcoin was cents\n\n5. stop themselves from eating that one sandwich\n\nThe universe seems smarter than us.\n\nIf time travel was possible, we would have ruined everything already.\n\n## **Final Thought**\n\nThe biggest lesson I learned from this entire rabbit hole is simple:\n\nThe laws of physics are not the issue.\n\nHuman chaos is.\n\nIf the universe ever gives us a portal, the portal will close itself out of self preservation.\n\nUntil then, we can dream, theorize, and create completely unserious APIs that run on cursed GPUs.\n\nWhich, honestly, feels like the more responsible option."
 })XXX";
-        } else if (id == "boundless-space") {
-            return R"XXX({
+  } else if (id == "boundless-space") {
+    return R"XXX({
   "id": "boundless-space",
   "title": "The Infinite Expanse: Why Space Is More Boundless Than We Can Comprehend",
   "excerpt": "We like to pretend we understand space. But if you stop and really stare at the idea of space itself, something strange and uncomfortable happens. A philosophical exploration of space, nothingness, and existence.",
@@ -134,13 +160,13 @@ namespace api {
   "category": "Space",
   "content": "We like to pretend we understand space. We talk about distance, galaxies, expansion, black holes and cosmic horizons. We say space is big and we say it goes on forever. But if you stop for a moment and really stare at the idea of space itself, something strange and uncomfortable happens.\n\nYou begin to see that space is not logically simple. It is not even intuitive. It is the most paradoxical thing we experience because it is the one thing we cannot remove, cannot replace and cannot imagine disappearing. And yet we act like it is normal.\n\nThis post explores a deeper way to think about space, nothingness, existence and why the universe feels like it is cheating the rules of reality. These thoughts are not scientific conclusions but philosophical reflections that try to take the idea of \"infinite space\" seriously instead of treating it as a math symbol.\n\n## **Space Is Not Supposed To Be Possible**\n\nWe know what it means for something to exist. A human exists. A planet exists. A star exists. They are all physical things that can appear, change or stop existing.\n\nBut space is different. Space is not an object in the usual sense. It is not a substance, not a material and not a void. It is the physical openness inside which everything else happens.\n\nIf you removed every star, galaxy and particle, you would still be left with space. Space is the stage. Space is the context. Space is the environment. Even empty space is still something.\n\nThis creates the first paradox. Space feels like it exists, but it does not behave like anything else that exists.\n\n## **Absolute Nothing Is Not Space**\n\nHere is where the confusion usually begins. When people imagine \"nothing\", they imagine a vast black emptiness. Infinite darkness. No matter, no light, no stars.\n\nBut that is still space. That is still a region. That is still distance and direction and geometry. That is still something.\n\nAbsolute nothing is not emptiness. It is not darkness. It is not infinite black. Absolute nothing has no space, no dimension, no size, no time, no potential and no openness. It cannot be infinite because infinity itself is a spatial property.\n\nNothing cannot be a container. Nothing cannot be a place. Nothing cannot even be imagined because the moment you imagine it, you have given it a space to sit in.\n\nAbsolute nothing is a mental concept, not a real possible state.\n\n## **So What Came First: Nothing Or Existence?**\n\nHere is the tempting idea: nothing existed, then something replaced it. You imagine nothing as the default and existence as a new arrival. Something appears and fills the blank. Something begins and overwrites the void.\n\nThis feels natural, but it hides a contradiction. If nothing ever existed as a state, then there could be no laws, no time, no change and no possibility. Absolute nothing cannot transform. It cannot shift into something because change itself requires existence.\n\nThe moment you allow a transition, you have already allowed existence.\n\nThis means the idea that nothing is older than existence cannot be correct. Nothing cannot be older. Nothing cannot take place before anything. Nothing cannot hold a state long enough to be replaced.\n\nNothingness is not a real contender. It is not a thing that lost to existence. It never had the ability to compete.\n\n## **Existence Did Not Come After Nothing**\n\nThe cleaner explanation is this:\n\nExistence is fundamental.\n\nNothing is not a real state.\n\nThere was never a moment when absolute nothing was true.\n\nThere was no before, no ahead, no earlier.\n\nExistence did not emerge. Existence simply is.\n\nIf you try to imagine absolute nothing as the starting point, you will always end up giving it attributes like earlier, outside, before or around. But those are all spatial or temporal concepts that only make sense inside existence.\n\nYou cannot apply the rules of existence to the absence of existence.\n\n## **Space Is Not Inside Anything**\n\nThis is the second major realization. Space is not a bubble floating inside a larger nothing. Space is not contained. Space does not sit within a background. The universe does not rest inside a void. Space is the framework of all possible relationships.\n\nIf space were inside something else, that something else would itself be space. Distance is distance. There is no meta-distance.\n\nThe universe is not in anything. The universe is everything.\n\n## **Then Why Does Space Feel Infinite?**\n\nBecause from inside the universe, there is no external boundary to hit. No edge to bounce off. No surface. No container.\n\nInfinity here does not describe an actual countable amount. It describes the absence of limits. We cannot travel to \"the end\" because the idea of an end only makes sense if something larger surrounds us.\n\nInfinity simply points to the fact that space is not a thing inside something else. It is the structure of all possible somethings.\n\n## **Can Space Cease To Exist?**\n\nA human can cease to exist. A planet can cease to exist. But space is not an object in space. It is not a participant. It is the condition required for participants to exist at all.\n\nIf space stopped existing, everything that relies on space would collapse with it. Time, causality, position, change, form, matter, identity. There would be no \"after\" in which the absence of space could be noticed.\n\nWe would not get nothing. We would get no possibility of anything.\n\nThis is the true boundary of the question.\n\n## **Existence Might Be The Only Possible State**\n\nThis leads to one last conclusion. A surprising one. A simple one.\n\nNothing is impossible.\n\nExistence is inevitable.\n\nExistence has no alternative.\n\nExistence does not explain itself because it is the condition that allows explanations to even exist.\n\nWhen people try to describe the ultimate foundation of reality, they often use metaphors like God or Being or The Ground. Not because they are invoking religion but because they are trying to name the thing that sits beneath every possible thing.\n\nNot an entity.\n\nNot a creator.\n\nNot a person.\n\nSimply the fact that there is something rather than nothing, and that nothing was never an option.\n\n## **Final Thoughts**\n\nSpace is stranger than we treat it. It is not emptiness. It is not contained. It is not a thing, yet it is physical. It is not infinite in size but infinite in the absence of boundaries. It cannot be created or destroyed in the same sense other things can. And it does not sit inside a larger void.\n\nWhen we say the universe is boundless, we are not exaggerating. We are admitting that our minds cannot fully fit the idea of existence inside themselves. We are creatures inside the system trying to understand the container that has no outside.\n\nThe infinite expanse is not just big. It is conceptually untouchable. And that is what makes it profound."
 })XXX";
-        }
-        
-        return "{}";
-    }
+  }
 
-    std::string getWorkExperienceJson() {
-        return R"XXX([
+  return "{}";
+}
+
+std::string getWorkExperienceJson() {
+  return R"XXX([
   {
     "company": "Shield",
     "location": "San Francisco",
@@ -205,11 +231,11 @@ namespace api {
     "technologies": ["React", "PHP", "JavaScript", "Teaching", "Full Stack"]
   }
 ])XXX";
-    }
+}
 
-    std::string getLeaderboardJson(const std::string& gameId) {
-        if (gameId == "snake-3d") {
-            return R"XXX([
+std::string getLeaderboardJson(const std::string &gameId) {
+  if (gameId == "snake-3d") {
+    return R"XXX([
   {
     "rank": 1,
     "player": "Dotun",
@@ -241,8 +267,8 @@ namespace api {
     "date": "2025-01-16"
   }
 ])XXX";
-        } else if (gameId == "space-shooter") {
-            return R"XXX([
+  } else if (gameId == "space-shooter") {
+    return R"XXX([
   {
     "rank": 1,
     "player": "Dotun",
@@ -279,9 +305,8 @@ namespace api {
     "date": "2025-01-16"
   }
 ])XXX";
-        }
-        
-        return "[]";
-    }
-}
+  }
 
+  return "[]";
+}
+} // namespace api
