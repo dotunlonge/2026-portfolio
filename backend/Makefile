@@ -18,6 +18,7 @@ stop:
 		echo "Stopped backend (PID $$PID)"; \
 	fi
 	@pkill portfolio-server 2>/dev/null || true
+	@lsof -ti:8080 | xargs kill -9 2>/dev/null || true
 
 # Watch for changes and rebuild/restart
 watch-backend:

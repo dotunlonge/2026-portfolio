@@ -170,7 +170,7 @@ std::string getWorkExperienceJson() {
   {
     "company": "Lucid Financials",
     "location": "Israel",
-    "position": "Senior AI & Fullstack Engineer",
+    "position": "Fullstack Engineer",
     "period": "Dec 2025 — March 2026",
     "funding": "",
     "description": "Designed and engineered AI-powered automation systems, data enrichment pipelines, and intelligent integrations using Python, LLMs, and modern Agentic frameworks. Architected a Model Context Protocol (MCP) server for QuickBooks Online integrating LangChain and LangGraph. Engineered an autonomous outbound calling pipeline in Python integrating Apollo.io, Twilio, and Retell AI for conversational, AI-driven sales calls.",
