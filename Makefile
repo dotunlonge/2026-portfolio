@@ -2,7 +2,7 @@
 
 # Build backend
 build-backend:
-	cd backend && mkdir -p build && cd build && cmake .. && make
+	$(MAKE) -C backend build
 
 # Build frontend
 build-frontend:
@@ -11,13 +11,21 @@ build-frontend:
 # Build both
 build: build-backend build-frontend
 
-# Run backend
-run-backend:
-	cd backend/build && ./portfolio-server
-
 # Run frontend
 run-frontend:
 	cd frontend && npm run dev
+
+# Watch backend for changes and rebuild/restart
+watch-backend:
+	$(MAKE) -C backend watch-backend
+
+# Helper to run backend in background
+run-backend-bg:
+	$(MAKE) -C backend run-bg
+
+# Helper to stop backend
+stop-backend:
+	$(MAKE) -C backend stop
 
 # Install dependencies
 install:
@@ -38,8 +46,7 @@ all: build
 	@echo "Frontend running on http://localhost:3000"
 	@echo "Stop servers with: make stop"
 
-stop:
-	@if [ -f backend/server.pid ]; then kill $$(cat backend/server.pid) && rm backend/server.pid; fi
+stop: stop-backend
 	@if [ -f frontend/frontend.pid ]; then kill $$(cat frontend/frontend.pid) && rm frontend/frontend.pid; fi
 	@echo "Servers stopped"
 

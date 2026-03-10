@@ -50,7 +50,7 @@ std::string getPersonalInfoJson() {
   "github": "https://github.com/dotunlonge",
   "website": "https://dotunlonge.vercel.app",
   "linkedin": "https://www.linkedin.com/in/oludotunlonge",
-  "summary": "Software Engineer with 8+ years experience building systems, full-stack applications, and AI/Web3 products for startups, agencies, and global teams. Worked across diverse domains including AI assistants, Web3 security, healthcare, media platforms, and fintech. Built products from early stage to scale, handling everything from infrastructure to payments to user-facing features.",
+  "summary": "Software Engineer with 9+ years experience building systems, full-stack applications, and AI/Web3 products for startups, agencies, and global teams. Worked across diverse domains including AI assistants, Web3 security, healthcare, media platforms, and fintech. Built products from early stage to scale, handling everything from infrastructure to payments to user-facing features.",
   "skills": [
     "TypeScript", "Rust", "Solidity", "JavaScript", "Python", "PHP", "Ruby on Rails", "C++", "C#", "Swift",
     "Tanstack Start", "Next.js", "React", "NestJS", "Bun", "Hono", "Express.js", "Node.js", "GraphQL", "REST",
