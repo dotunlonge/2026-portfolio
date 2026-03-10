@@ -43,7 +43,7 @@ std::string escapeJson(const std::string &str) {
 std::string getPersonalInfoJson() {
   return R"XXX({
   "name": "Oludotun Longe",
-  "title": "Software Engineer (TypeScript • Rust • AI • Web3)",
+  "title": "Software Engineer (TypeScript • Python • Rust • AI • Web3)",
   "location": "Lagos, Nigeria",
   "phone": "+234 817 009 6535",
   "email": "olududotunlonge@gmail.com",
@@ -54,7 +54,7 @@ std::string getPersonalInfoJson() {
   "skills": [
     "TypeScript", "Rust", "Solidity", "JavaScript", "Python", "PHP", "Ruby on Rails", "C++", "C#", "Swift",
     "Tanstack Start", "Next.js", "React", "NestJS", "Bun", "Hono", "Express.js", "Node.js", "GraphQL", "REST",
-    "OpenAI", "Gemini", "Anthropic", "Pinecone", "LangChain", "LlamaIndex",
+    "OpenAI", "Gemini", "Anthropic", "Pinecone", "LangChain", "LlamaIndex", "Model Context Protocol (MCP)", "LangGraph", "Retell AI", "Apollo API",
     "Ethers.js", "Web3.js", "Wagmi", "Hardhat", "Stellar SDK",
     "Docker", "Kubernetes", "Redis", "Kafka", "RabbitMQ",
     "AWS", "GCP", "Azure",
@@ -66,7 +66,7 @@ std::string getPersonalInfoJson() {
     "Languages": ["TypeScript", "Rust", "JavaScript", "Python", "PHP", "Ruby on Rails", "C++", "C#", "Swift", "Solidity"],
     "Frontend": ["React", "Next.js", "Tanstack Start", "Expo"],
     "Backend": ["Node.js", "NestJS", "Express.js", "Hono", "Bun", "GraphQL", "REST"],
-    "AI/ML": ["OpenAI", "Gemini", "Anthropic", "Pinecone", "LangChain", "LlamaIndex"],
+    "AI/ML": ["OpenAI", "Gemini", "Anthropic", "Pinecone", "LangChain", "LlamaIndex", "Model Context Protocol (MCP)", "LangGraph", "Retell AI", "Apollo API"],
     "Web3": ["Ethers.js", "Web3.js", "Wagmi", "Hardhat", "Stellar SDK"],
     "Infrastructure": ["Docker", "Kubernetes", "Redis", "Kafka", "RabbitMQ", "CI/CD", "DevOps", "Microservices", "API Gateways"],
     "Cloud": ["AWS", "GCP", "Azure", "Vercel", "Railway", "Heroku", "VPS", "Cloudflare"],
@@ -167,6 +167,15 @@ std::string getBlogPostJson(const std::string &id) {
 
 std::string getWorkExperienceJson() {
   return R"XXX([
+  {
+    "company": "Lucid Financials",
+    "location": "Israel",
+    "position": "Senior AI & Fullstack Engineer",
+    "period": "Dec 2025 — March 2026",
+    "funding": "",
+    "description": "Designed and engineered AI-powered automation systems, data enrichment pipelines, and intelligent integrations using Python, LLMs, and modern Agentic frameworks. Architected a Model Context Protocol (MCP) server for QuickBooks Online integrating LangChain and LangGraph. Engineered an autonomous outbound calling pipeline in Python integrating Apollo.io, Twilio, and Retell AI for conversational, AI-driven sales calls.",
+    "technologies": ["Python", "TypeScript", "FastAPI", "LangChain", "LangGraph", "OpenAI API", "Retell AI", "Apollo API", "AWS", "PostgreSQL"]
+  },
   {
     "company": "Shield",
     "location": "San Francisco",
